@@ -6,6 +6,7 @@ const BiasChart = ({ props }) => {
   let arrayX = [];
   let arrayY = [];
   let valueQ = 0;
+  let bias = 0;
   const [result, setResult] = useState();
 
   const factorial = (num) => {
@@ -39,7 +40,7 @@ const BiasChart = ({ props }) => {
     valueQ = props.q;
   }
 
-  let bias = Number(
+  bias = Number(
     3 + (1 - 6 * props.p * props.q) / Math.sqrt(props.N * props.p * props.q)
   ).toFixed(4);
 
