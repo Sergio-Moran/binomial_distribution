@@ -1,6 +1,7 @@
 import { Button, Checkbox, Col, Input, Row } from "antd";
 import React, { useState } from "react";
 import styles from "../styles/Home.module.css";
+import BiasChart from "./BiasChart";
 import Calculator from "./Calculator";
 import Chart from "./Chart";
 
@@ -13,12 +14,12 @@ const Index = () => {
   const [check, setCheck] = useState(false);
   const [checkPoblation, setCheckPoblation] = useState(false);
   const [data, setData] = useState({
-    N: "",
-    n: "",
-    x: "",
-    xn: "",
-    p: "",
-    q: "",
+    N: 0,
+    n: 0,
+    x: 0,
+    xn: 0,
+    p: 0,
+    q: 0,
   });
 
   const handlChange = (name, value) => {
@@ -154,14 +155,25 @@ const Index = () => {
             <Row gutter={[16, 24]}>
               <Col className="gutter-row" span={24}>
                 <label>
-                  <Calculator props={data} check={check} checkPoblation={checkPoblation} />
+                  <Calculator
+                    props={data}
+                    check={check}
+                    checkPoblation={checkPoblation}
+                  />
                 </label>
               </Col>
             </Row>
           </Col>
         </div>
+
+        <Col className="gutter-row" span={14}>
+          <Chart props={data} />
+          <br />
+          <div hidden={!checkPoblation}>
+          <BiasChart props={data} />
+          </div>
+        </Col>
       </Row>
-      <Chart props={data} />
     </>
   );
 };

@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card } from "antd";
 import ReactEcharts from "echarts-for-react";
 
-const Chart = ({ props }) => {
+const BiasChart = ({ props }) => {
   let arrayX = [];
   let arrayY = [];
+  let valueQ = 0;
+  const [result, setResult] = useState();
 
   const factorial = (num) => {
     if (num < 0) return -1;
@@ -31,6 +33,16 @@ const Chart = ({ props }) => {
     arrayX.push(i);
   }
 
+  if (props.q == 0) {
+    valueQ = Number(1 - props.p).toFixed(4);
+  } else {
+    valueQ = props.q;
+  }
+
+  let bias = Number(
+    3 + (1 - 6 * props.p * props.q) / Math.sqrt(props.N * props.p * props.q)
+  ).toFixed(4);
+
   // Create the echarts instance
   const option = {
     xAxis: {
@@ -43,17 +55,27 @@ const Chart = ({ props }) => {
     series: [
       {
         data: arrayY,
-        type: "bar",
+        type: "line",
         smooth: true,
       },
     ],
   };
 
   return (
-    <Card title="Distribución Binomial" bordered={false}>
+    <Card
+      title={
+        "Sesgo : " +
+        (bias < 0
+          ? "Distribución a la izquierda"
+          : bias > 0
+          ? "Distribución a la derecha"
+          : "Distribución Simetrica")
+      }
+      bordered={false}
+    >
       <ReactEcharts option={option} />
     </Card>
   );
 };
 
-export default Chart;
+export default BiasChart;
