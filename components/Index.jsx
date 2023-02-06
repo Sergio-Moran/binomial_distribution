@@ -2,6 +2,7 @@ import { Button, Checkbox, Col, Input, Row } from "antd";
 import React, { useState } from "react";
 import styles from "../styles/Home.module.css";
 import Calculator from "./Calculator";
+import Chart from "./Chart";
 
 const style = {
   background: "#0092ff",
@@ -160,6 +161,7 @@ const Index = () => {
           </Col>
         </div>
       </Row>
+      <Chart props={data} />
     </>
   );
 };
