@@ -33,7 +33,7 @@ const Cards = ({ result, flag, results, resultPoblation }) => {
         La probabilidad de : {formatter}
         <br />
         Dando un resultado de {result}
-        <br />ó del {Number(result * 100)}% Media de : {resultPoblation.half}
+        <br />ó del {Number(result * 100).toFixed(2)}% Media de : {resultPoblation.half}
         <br />
         Factor de correacción : {resultPoblation.correctionFactor}
         <br />

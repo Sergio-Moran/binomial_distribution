@@ -43,7 +43,7 @@ const Calculator = ({ props, check, checkPoblation }) => {
         });
       }
       setFlag("3");
-      setResult(total);
+      setResult(Number(total).toFixed(2));
       setResults(valuesResult);
     }
 

@@ -63,17 +63,7 @@ const BiasChart = ({ props }) => {
   };
 
   return (
-    <Card
-      title={
-        "Sesgo : " +
-        (bias < 0
-          ? "Distribución a la izquierda"
-          : bias > 0
-          ? "Distribución a la derecha"
-          : "Distribución Simetrica")
-      }
-      bordered={false}
-    >
+    <Card title="Sesgo" bordered={false}>
       <ReactEcharts option={option} />
     </Card>
   );
