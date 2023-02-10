@@ -3,32 +3,41 @@ const maths = (N, n, x, xn, p, q, checkPoblation, check) => {
   let resultPoblation = 0;
   let total = 0;
   let valueQ = 0;
+  let valueP = 0;
   let flag = "";
 
-  if (q == 0) {
+  if (p == 0 && q == 0) {
+    return alert("La probabilidad de exito o de fracaso no peden estar vacias");
+  } else if (p == 0) {
+    valueP = Number(1 - q).toFixed(7);
+    valueQ = q;
+  } else if (q == 0) {
     valueQ = Number(1 - p).toFixed(7);
+    valueP = p;
   } else {
     valueQ = q;
+    valueP = p;
   }
 
+  /* When we have N and x to xn */
   if (checkPoblation && check) {
     if (x == xn) {
       return alert("x1 y x2 son iguales, colocar otro intervalo");
     }
-    valuesResult = calculatorPoblation(n, p, N, valueQ);
+    valuesResult = calculatorPoblation(n, valueP, N, valueQ);
     resultPoblation = valuesResult;
     if (x == 0) {
-      valuesResult = calculators(0, xn, n, p);
+      valuesResult = calculators(0, xn, n, valueP);
       valuesResult.forEach((e) => {
         total += Number(e);
       });
     } else if (x > xn) {
-      valuesResult = calculators(xn, x, n, p);
+      valuesResult = calculators(xn, x, n, valueP);
       valuesResult.forEach((e) => {
         total += Number(e);
       });
     } else if (x < xn) {
-      valuesResult = calculators(x, xn, n, p);
+      valuesResult = calculators(x, xn, n, valueP);
       valuesResult.forEach((e) => {
         total += Number(e);
       });
@@ -39,33 +48,32 @@ const maths = (N, n, x, xn, p, q, checkPoblation, check) => {
     return { valuesResult, resultPoblation, total, flag };
   }
 
-  /**
-   * When we have N
-   */
+  /* When we have N */
   if (checkPoblation && !check) {
-    valuesResult = calculatorPoblation(n, p, N, valueQ);
+    valuesResult = calculatorPoblation(n, valueP, N, valueQ);
     resultPoblation = valuesResult;
-    valuesResult = calculator(n, x, p);
+    valuesResult = calculator(n, x, valueP);
     flag = "4";
     return { valuesResult, resultPoblation, total, flag };
   }
 
+  /* We have a range of values */
   if (!checkPoblation && check) {
     if (x == xn) {
       return alert("x1 y x2 son iguales, colocar otro intervalo");
     }
     if (x == 0) {
-      valuesResult = calculators(0, xn, n, p);
+      valuesResult = calculators(0, xn, n, valueP);
       valuesResult.forEach((e) => {
         total += Number(e);
       });
     } else if (x > xn) {
-      valuesResult = calculators(xn, x, n, p);
+      valuesResult = calculators(xn, x, n, valueP);
       valuesResult.forEach((e) => {
         total += Number(e);
       });
     } else if (x < xn) {
-      valuesResult = calculators(x, xn, n, p);
+      valuesResult = calculators(x, xn, n, valueP);
       valuesResult.forEach((e) => {
         total += Number(e);
       });
@@ -73,14 +81,21 @@ const maths = (N, n, x, xn, p, q, checkPoblation, check) => {
     flag = "2";
     return { valuesResult, resultPoblation, total, flag };
   }
-
+  /* Most simple function */
   if (!check && !checkPoblation) {
-    total = calculator(n, x, p);
+    total = calculator(n, x, valueP);
     flag = "1";
     return { valuesResult, resultPoblation, total, flag };
   }
 };
 
+/**
+ * Function that is in charge of carrying out the calculations in the event that there is only one sample without population
+ * @param {Number} n
+ * @param {Number} x
+ * @param {Number} p
+ * @returns
+ */
 const calculator = (n, x, p) => {
   let numerator = factorial(n);
   let nLessX = factorial(Number(n - x));
@@ -92,6 +107,14 @@ const calculator = (n, x, p) => {
   return probability;
 };
 
+/**
+ * When you need to calculate a range of values then this function is used which determines each of the probabilities of the data separately to then be returned in an array
+ * @param {Number} x
+ * @param {Number} xn
+ * @param {Number} n
+ * @param {Number} p
+ * @returns array
+ */
 const calculators = (x, xn, n, p) => {
   let values = [];
   let numerator = 0;
@@ -127,7 +150,7 @@ const calculatorPoblation = (n, p, N, q) => {
   let deviation = 0;
   let kurtosis = 0;
   let bias = 0;
-  let result = determineSampleType(n, p);
+  let result = determineSampleType(n, N);
   half = Number(n * p).toFixed(7);
 
   if (result == "FINITA") {
@@ -154,10 +177,15 @@ const calculatorPoblation = (n, p, N, q) => {
 
   return resultPoblation;
 };
-
+/**
+ * Determine the type of population
+ * @param {Number} n 
+ * @param {Number} N 
+ * @returns 
+ */
 const determineSampleType = (n, N) => {
   let sample = "";
-  let result = Number((n * 100) / N).toFixed(2);
+  let result = Number(((n * 100) / N)).toFixed(2);
 
   if (result <= 5) {
     sample = "INFINITA";
@@ -166,7 +194,11 @@ const determineSampleType = (n, N) => {
   }
   return sample;
 };
-
+/**
+ * In charge of doing the calculations for the factorials
+ * @param {Number} num
+ * @returns
+ */
 const factorial = (num) => {
   if (num < 0) return -1;
   else if (num == 0) return 1;

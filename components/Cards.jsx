@@ -30,10 +30,13 @@ const Cards = ({ result, flag, results, resultPoblation }) => {
     });
     return (
       <Card title="Resultado" bordered={false}>
+        Es una poblacion {resultPoblation.flagSample}
+        <br />
         La probabilidad de : {formatter}
         <br />
         Dando un resultado de {result}
-        <br />ó del {Number(result * 100).toFixed(2)}% Media de : {resultPoblation.half}
+        <br />ó del {Number(result * 100).toFixed(2)}% Media de :{" "}
+        {resultPoblation.half}
         <br />
         Factor de correacción : {resultPoblation.correctionFactor}
         <br />
@@ -50,7 +53,7 @@ const Cards = ({ result, flag, results, resultPoblation }) => {
       <Card title="Resultado" bordered={false}>
         Es una poblacion {resultPoblation.flagSample}
         <br />
-        La probabilidad es de: {result} ó del {Number(result * 100).toFixed(2)}%
+        La probabilidad es de: {results} ó del {Number(results * 100).toFixed(2)}%
         <br />
         Media de : {resultPoblation.half}
         <br />
