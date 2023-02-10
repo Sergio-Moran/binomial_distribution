@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Card } from "antd";
 import ReactEcharts from "echarts-for-react";
-import { calculator } from "../js/calculator";
+import { calculator, determineSampleType } from "../js/calculator";
 
 const BiasChart = ({ props }) => {
   let arrayX = [];
@@ -9,6 +9,7 @@ const BiasChart = ({ props }) => {
   let valueQ = 0;
   let valueP = 0;
   let bias = 0;
+  let answer = '';
 
   if (props.p == 0) {
     valueP = Number(1 - props.q).toFixed(7);
@@ -31,6 +32,18 @@ const BiasChart = ({ props }) => {
     3 + (1 - 6 * valueP * valueQ) / Math.sqrt(props.N * valueP * valueQ)
   ).toFixed(4);
 
+  if(bias < 0){
+    answer = 'Sesgo Negativo'
+  }
+
+  if(bias == 0){
+    answer = 'Sesgo Neutro Medio'
+  }
+
+  if(bias > 0){
+    answer = 'Sesgo Positivo'
+  }
+
   // Create the echarts instance
   const option = {
     xAxis: {
@@ -50,7 +63,7 @@ const BiasChart = ({ props }) => {
   };
 
   return (
-    <Card title="Sesgo" bordered={false}>
+    <Card title={answer} bordered={false}>
       <ReactEcharts option={option} />
     </Card>
   );

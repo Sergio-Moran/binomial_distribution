@@ -55,6 +55,7 @@ const maths = (N, n, x, xn, p, q, checkPoblation, check) => {
     resultPoblation = valuesResult;
     valuesResult = calculator(n, x, valueP);
     flag = "4";
+    valuesResult = valuesResult.probability;
     return { valuesResult, resultPoblation, total, flag };
   }
 
@@ -239,4 +240,4 @@ const factorial = (num) => {
   }
 };
 
-export { maths, calculator };
+export { maths, calculator, determineSampleType };
