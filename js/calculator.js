@@ -28,23 +28,24 @@ const maths = (N, n, x, xn, p, q, checkPoblation, check) => {
     resultPoblation = valuesResult;
     if (x == 0) {
       valuesResult = calculators(0, xn, n, valueP);
-      valuesResult.forEach((e) => {
+      valuesResult.values.forEach((e) => {
         total += Number(e);
       });
     } else if (x > xn) {
       valuesResult = calculators(xn, x, n, valueP);
-      valuesResult.forEach((e) => {
+      valuesResult.values.forEach((e) => {
         total += Number(e);
       });
     } else if (x < xn) {
       valuesResult = calculators(x, xn, n, valueP);
-      valuesResult.forEach((e) => {
+      valuesResult.values.forEach((e) => {
         total += Number(e);
       });
     }
     total = Number(total).toFixed(7);
+    
     flag = "3";
-
+    valuesResult = valuesResult.values;
     return { valuesResult, resultPoblation, total, flag };
   }
 
@@ -63,27 +64,34 @@ const maths = (N, n, x, xn, p, q, checkPoblation, check) => {
       return alert("x1 y x2 son iguales, colocar otro intervalo");
     }
     if (x == 0) {
-      valuesResult = calculators(0, xn, n, valueP);
-      valuesResult.forEach((e) => {
+      valuesResult = calculators(0, xn, n, valueP, valueQ);
+      valuesResult.values.forEach((e) => {
         total += Number(e);
       });
     } else if (x > xn) {
-      valuesResult = calculators(xn, x, n, valueP);
-      valuesResult.forEach((e) => {
+      valuesResult = calculators(xn, x, n, valueP, valueQ);
+      valuesResult.values.forEach((e) => {
         total += Number(e);
       });
     } else if (x < xn) {
-      valuesResult = calculators(x, xn, n, valueP);
-      valuesResult.forEach((e) => {
+      valuesResult = calculators(x, xn, n, valueP, valueQ);
+      valuesResult.values.forEach((e) => {
         total += Number(e);
       });
     }
+    total = Number(total).toFixed(7);
+    resultPoblation = {
+        half: valuesResult.half,
+        deviation: valuesResult.deviation,
+        kurtosis: valuesResult.kurtosis,
+    }
+    valuesResult = valuesResult.values;
     flag = "2";
     return { valuesResult, resultPoblation, total, flag };
   }
   /* Most simple function */
   if (!check && !checkPoblation) {
-    total = calculator(n, x, valueP);
+    total = calculator(n, x, valueP, valueQ);
     flag = "1";
     return { valuesResult, resultPoblation, total, flag };
   }
@@ -96,7 +104,10 @@ const maths = (N, n, x, xn, p, q, checkPoblation, check) => {
  * @param {Number} p
  * @returns
  */
-const calculator = (n, x, p) => {
+const calculator = (n, x, p, q) => {
+  let half = 0;
+  let deviation = 0;
+  let kurtosis = 0;
   let numerator = factorial(n);
   let nLessX = factorial(Number(n - x));
   let xFactorial = factorial(x);
@@ -104,7 +115,16 @@ const calculator = (n, x, p) => {
   let probability = Number(
     (numerator / denominator) * Math.pow(p, x) * Math.pow(1 - p, n - x)
   ).toFixed(7);
-  return probability;
+  half = Number(n * p).toFixed(7);
+  deviation = Number(Math.sqrt(Number(n * p * q))).toFixed(7);
+  kurtosis = Number(Number(q - p) / Number(Math.sqrt(n * p * q))).toFixed(7);
+  const result = {
+    half: half,
+    deviation: deviation,
+    kurtosis: kurtosis,
+    probability: probability,
+  };
+  return result;
 };
 
 /**
@@ -115,13 +135,16 @@ const calculator = (n, x, p) => {
  * @param {Number} p
  * @returns array
  */
-const calculators = (x, xn, n, p) => {
+const calculators = (x, xn, n, p, q) => {
   let values = [];
   let numerator = 0;
   let nLessX = 0;
   let xFactorial = 0;
   let denominator = 0;
   let probability = 0;
+  let half = 0;
+  let deviation = 0;
+  let kurtosis = 0;
   for (var i = x; i <= xn; i++) {
     numerator = factorial(n);
     nLessX = factorial(Number(n - i));
@@ -132,7 +155,16 @@ const calculators = (x, xn, n, p) => {
     ).toFixed(7);
     values.push(probability);
   }
-  return values;
+  half = Number(n * p).toFixed(7);
+  deviation = Number(Math.sqrt(Number(n * p * q))).toFixed(7);
+  kurtosis = Number(Number(q - p) / Number(Math.sqrt(n * p * q))).toFixed(7);
+  const result = {
+    half: half,
+    deviation: deviation,
+    kurtosis: kurtosis,
+    values: values,
+  };
+  return result;
 };
 
 /**
@@ -179,13 +211,13 @@ const calculatorPoblation = (n, p, N, q) => {
 };
 /**
  * Determine the type of population
- * @param {Number} n 
- * @param {Number} N 
- * @returns 
+ * @param {Number} n
+ * @param {Number} N
+ * @returns
  */
 const determineSampleType = (n, N) => {
   let sample = "";
-  let result = Number(((n * 100) / N)).toFixed(2);
+  let result = Number((n * 100) / N).toFixed(2);
 
   if (result <= 5) {
     sample = "INFINITA";

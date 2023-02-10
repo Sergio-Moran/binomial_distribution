@@ -7,7 +7,13 @@ const Cards = ({ result, flag, results, resultPoblation }) => {
   } else if (flag == "1") {
     return (
       <Card title="Resultado" bordered={false}>
-        La probabilidad es de: {result} ó del {Number(result * 100).toFixed(2)}%
+        La probabilidad es de: {result.probability} ó del {Number(result.probability * 100).toFixed(2)}%
+        <br/>
+        Media de : {result.half}
+        <br />
+        Desviación : {result.deviation}
+        <br />
+        Curtosis : {result.kurtosis}
       </Card>
     );
   } else if (flag == "2") {
@@ -21,6 +27,12 @@ const Cards = ({ result, flag, results, resultPoblation }) => {
         <br />
         Dando un resultado de {result}
         <br />ó del {Number(result * 100)}%
+        <br/>
+        Media de : {resultPoblation.half}
+        <br />
+        Desviación : {resultPoblation.deviation}
+        <br />
+        Curtosis : {resultPoblation.kurtosis}
       </Card>
     );
   } else if (flag == "3") {
@@ -38,7 +50,7 @@ const Cards = ({ result, flag, results, resultPoblation }) => {
         <br />ó del {Number(result * 100).toFixed(2)}% Media de :{" "}
         {resultPoblation.half}
         <br />
-        Factor de correacción : {resultPoblation.correctionFactor}
+        Factor de corrección : {resultPoblation.correctionFactor}
         <br />
         Desviación : {resultPoblation.deviation}
         <br />

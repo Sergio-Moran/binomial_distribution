@@ -21,8 +21,8 @@ const Chart = ({ props }) => {
   }
 
   for (let i = 0; i <= props.n; i++) {
-    let valuesResult = calculator(props.n, i, valueP);
-    arrayY.push(valuesResult);
+    let valuesResult = calculator(props.n, i, valueP, valueQ);
+    arrayY.push(valuesResult.probability);
     arrayX.push(i);
   }
 
