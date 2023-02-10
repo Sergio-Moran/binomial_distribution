@@ -48,6 +48,8 @@ const Cards = ({ result, flag, results, resultPoblation }) => {
   } else if (flag == "4") {
     return (
       <Card title="Resultado" bordered={false}>
+        Es una poblacion {resultPoblation.flagSample}
+        <br />
         La probabilidad es de: {result} ó del {Number(result * 100).toFixed(2)}%
         <br />
         Media de : {resultPoblation.half}
