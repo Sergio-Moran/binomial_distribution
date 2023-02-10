@@ -13,7 +13,8 @@ const style = {
 const Index = () => {
   const [check, setCheck] = useState(false);
   const [checkPoblation, setCheckPoblation] = useState(false);
-  const [option, setOption] = useState('');
+  const [optionLessEqual, setOptionLessEqual] = useState(false);
+  const [optionMoreEqual, setOptionMoreEqual] = useState(false);
   const [data, setData] = useState({
     N: 0,
     n: 0,
@@ -32,7 +33,8 @@ const Index = () => {
 
   const onChange = () => {
     setCheck(!check);
-    setOption('');
+    setOptionLessEqual(!optionLessEqual);
+    setOptionMoreEqual(!optionMoreEqual);
     if (check) {
       setData({
         N: data.N,
@@ -120,10 +122,14 @@ const Index = () => {
                         }
                       />
                     </label>
-                    <Checkbox onClick={(e) => setOption('MASDE')}>
+                    <Checkbox
+                      onClick={(e) => setOptionLessEqual(!optionLessEqual)}
+                    >
                       {"<="}
                     </Checkbox>
-                    <Checkbox onClick={(e) => setOption('MENOSDE')}>
+                    <Checkbox
+                      onClick={(e) => setOptionMoreEqual(!optionMoreEqual)}
+                    >
                       {"=>"}
                     </Checkbox>
                   </div>
@@ -167,6 +173,8 @@ const Index = () => {
                     props={data}
                     check={check}
                     checkPoblation={checkPoblation}
+                    optionMoreEqual={optionMoreEqual}
+                    optionLessEqual={optionLessEqual}
                   />
                 </label>
               </Col>

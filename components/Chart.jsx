@@ -1,13 +1,14 @@
 import React from "react";
 import { Card } from "antd";
 import ReactEcharts from "echarts-for-react";
-import { calculator } from "../js/calculator";
+import { calculator, determineSampleType } from "../js/calculator";
 
 const Chart = ({ props }) => {
   let arrayX = [];
   let arrayY = [];
   let valueQ = 0;
   let valueP = 0;
+  let answer = "";
 
   if (props.p == 0) {
     valueP = Number(1 - props.q).toFixed(7);
@@ -24,6 +25,10 @@ const Chart = ({ props }) => {
     let valuesResult = calculator(props.n, i, valueP, valueQ);
     arrayY.push(valuesResult.probability);
     arrayX.push(i);
+  }
+
+  if (props.N != 0) {
+    answer = determineSampleType(props.n, props.N);
   }
 
   // Create the echarts instance
@@ -45,7 +50,7 @@ const Chart = ({ props }) => {
   };
 
   return (
-    <Card title="Distribución Binomial" bordered={false}>
+    <Card title={'Distribución Binomial: ' + answer} bordered={false}>
       <ReactEcharts option={option} />
     </Card>
   );
