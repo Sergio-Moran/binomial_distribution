@@ -11,20 +11,24 @@ const Calculator = ({ props, check, checkPoblation }) => {
   const [flag, setFlag] = useState("");
 
   const onMath = () => {
-    let statisticalData = maths(
-      props.N,
-      props.n,
-      props.x,
-      props.xn,
-      props.p,
-      props.q,
-      checkPoblation,
-      check
-    );
-    setResultPoblation(statisticalData.resultPoblation);
-    setResults(statisticalData.valuesResult);
-    setResult(statisticalData.total);
-    setFlag(statisticalData.flag);
+    /* try { */
+      let statisticalData = maths(
+        props.N,
+        props.n,
+        props.x,
+        props.xn,
+        props.p,
+        props.q,
+        checkPoblation,
+        check
+      );
+      setResultPoblation(statisticalData.resultPoblation);
+      setResults(statisticalData.valuesResult);
+      setResult(statisticalData.total);
+      setFlag(statisticalData.flag);
+    /* } catch (e) {
+      console.log(e);
+    } */
   };
 
   return (

@@ -7,7 +7,13 @@ const Cards = ({ result, flag, results, resultPoblation }) => {
   } else if (flag == "1") {
     return (
       <Card title="Resultado" bordered={false}>
-        La probabilidad es de: {result} ó del {Number(result * 100).toFixed(2)}%
+        La probabilidad es de: {result.probability} ó del {Number(result.probability * 100).toFixed(2)}%
+        <br/>
+        Media de : {result.half}
+        <br />
+        Desviación : {result.deviation}
+        <br />
+        Curtosis : {result.kurtosis}
       </Card>
     );
   } else if (flag == "2") {
@@ -21,6 +27,12 @@ const Cards = ({ result, flag, results, resultPoblation }) => {
         <br />
         Dando un resultado de {result}
         <br />ó del {Number(result * 100)}%
+        <br/>
+        Media de : {resultPoblation.half}
+        <br />
+        Desviación : {resultPoblation.deviation}
+        <br />
+        Curtosis : {resultPoblation.kurtosis}
       </Card>
     );
   } else if (flag == "3") {
@@ -30,12 +42,15 @@ const Cards = ({ result, flag, results, resultPoblation }) => {
     });
     return (
       <Card title="Resultado" bordered={false}>
+        Es una poblacion {resultPoblation.flagSample}
+        <br />
         La probabilidad de : {formatter}
         <br />
         Dando un resultado de {result}
-        <br />ó del {Number(result * 100).toFixed(2)}% Media de : {resultPoblation.half}
+        <br />ó del {Number(result * 100).toFixed(2)}% Media de :{" "}
+        {resultPoblation.half}
         <br />
-        Factor de correacción : {resultPoblation.correctionFactor}
+        Factor de corrección : {resultPoblation.correctionFactor}
         <br />
         Desviación : {resultPoblation.deviation}
         <br />
@@ -48,11 +63,13 @@ const Cards = ({ result, flag, results, resultPoblation }) => {
   } else if (flag == "4") {
     return (
       <Card title="Resultado" bordered={false}>
-        La probabilidad es de: {result} ó del {Number(result * 100).toFixed(2)}%
+        Es una poblacion {resultPoblation.flagSample}
+        <br />
+        La probabilidad es de: {results} ó del {Number(results * 100).toFixed(2)}%
         <br />
         Media de : {resultPoblation.half}
         <br />
-        Factor de correlación : {resultPoblation.correctionFactor}
+        Factor de corrección : {resultPoblation.correctionFactor}
         <br />
         Desviación : {resultPoblation.deviation}
         <br />

@@ -13,6 +13,7 @@ const style = {
 const Index = () => {
   const [check, setCheck] = useState(false);
   const [checkPoblation, setCheckPoblation] = useState(false);
+  const [option, setOption] = useState('');
   const [data, setData] = useState({
     N: 0,
     n: 0,
@@ -31,6 +32,7 @@ const Index = () => {
 
   const onChange = () => {
     setCheck(!check);
+    setOption('');
     if (check) {
       setData({
         N: data.N,
@@ -118,6 +120,12 @@ const Index = () => {
                         }
                       />
                     </label>
+                    <Checkbox onClick={(e) => setOption('MASDE')}>
+                      {"<="}
+                    </Checkbox>
+                    <Checkbox onClick={(e) => setOption('MENOSDE')}>
+                      {"=>"}
+                    </Checkbox>
                   </div>
                 </label>
               </Col>
