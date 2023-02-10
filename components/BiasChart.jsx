@@ -1,32 +1,13 @@
 import React, { useState } from "react";
 import { Card } from "antd";
 import ReactEcharts from "echarts-for-react";
+import { calculator } from "../js/calculator";
 
 const BiasChart = ({ props }) => {
   let arrayX = [];
   let arrayY = [];
   let valueQ = 0;
   let bias = 0;
-  const [result, setResult] = useState();
-
-  const factorial = (num) => {
-    if (num < 0) return -1;
-    else if (num == 0) return 1;
-    else {
-      return num * factorial(num - 1);
-    }
-  };
-
-  const calculator = (n, x, p) => {
-    let numerator = factorial(n);
-    let nLessX = factorial(Number(n - x));
-    let xFactorial = factorial(x);
-    let denominator = Number(nLessX * xFactorial).toFixed(4);
-    let probability = Number(
-      (numerator / denominator) * Math.pow(p, x) * Math.pow(1 - p, n - x)
-    ).toFixed(4);
-    return probability;
-  };
 
   for (let i = 0; i <= props.n; i++) {
     let valuesResult = calculator(props.n, i, props.p);

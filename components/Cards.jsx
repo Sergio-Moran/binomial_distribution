@@ -52,7 +52,7 @@ const Cards = ({ result, flag, results, resultPoblation }) => {
         <br />
         Media de : {resultPoblation.half}
         <br />
-        Factor de correlación : {resultPoblation.correctionFactor}
+        Factor de corrección : {resultPoblation.correctionFactor}
         <br />
         Desviación : {resultPoblation.deviation}
         <br />
