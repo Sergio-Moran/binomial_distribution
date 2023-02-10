@@ -170,7 +170,7 @@ const Index = () => {
           <Chart props={data} />
           <br />
           <div hidden={!checkPoblation}>
-          <BiasChart props={data} />
+            <BiasChart props={data} />
           </div>
         </Col>
       </Row>
