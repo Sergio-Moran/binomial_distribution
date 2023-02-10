@@ -143,4 +143,4 @@ const factorial = (num) => {
   }
 };
 
-export { maths };
+export { maths, calculator };
