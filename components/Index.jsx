@@ -122,16 +122,6 @@ const Index = () => {
                         }
                       />
                     </label>
-                    <Checkbox
-                      onClick={(e) => setOptionLessEqual(!optionLessEqual)}
-                    >
-                      {"<="}
-                    </Checkbox>
-                    <Checkbox
-                      onClick={(e) => setOptionMoreEqual(!optionMoreEqual)}
-                    >
-                      {"=>"}
-                    </Checkbox>
                   </div>
                 </label>
               </Col>
