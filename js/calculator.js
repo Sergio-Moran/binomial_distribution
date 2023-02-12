@@ -7,7 +7,7 @@ const maths = (N, n, x, xn, p, q, checkPoblation, check) => {
   let flag = "";
 
   if (p == 0 && q == 0) {
-    return alert("La probabilidad de exito o de fracaso no peden estar vacias");
+    return alert("La probabilidad de exito o de fracaso no pueden estar vacias");
   } else if (p == 0) {
     valueP = Number(1 - q).toFixed(7);
     valueQ = q;
