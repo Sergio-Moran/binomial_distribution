@@ -31,8 +31,13 @@ const Cards = ({ result, flag, results, resultPoblation }) => {
       <Card title="Resultado" bordered={false}>
         La probabilidad de : {formatter}
         <br />
-        Dando un resultado de {result}
-        <br />ó del {Number(result * 100)}%
+        Suma de las probabilidades {result}
+        <br />
+        ó del {Number(result * 100)}%
+        <br />
+        La resta con 1 es de {Number( 1- result).toFixed(7)}
+        <br />
+        ó del {Number((1- result) * 100)}%
         <br />
         Media de : {resultPoblation.half}
         <br />
