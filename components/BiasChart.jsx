@@ -29,7 +29,7 @@ const BiasChart = ({ props }) => {
   }
 
   bias = Number(
-    3 + (1 - 6 * valueP * valueQ) / Math.sqrt(props.N * valueP * valueQ)
+    3 + (1 - 6 * valueP * valueQ) / Math.sqrt(props.n * valueP * valueQ)
   ).toFixed(4);
 
   if(bias < 0){

@@ -6,8 +6,14 @@ const maths = (N, n, x, xn, p, q, checkPoblation, check) => {
   let valueP = 0;
   let flag = "";
 
+  if (N < 0 || n < 0 || x < 0 || xn < 0 || p < 0 || q < 0) {
+    return alert("No coloque valores negativos");
+  }
+
   if (p == 0 && q == 0) {
-    return alert("La probabilidad de exito o de fracaso no pueden estar vacias");
+    return alert(
+      "La probabilidad de exito o de fracaso no pueden estar vacias"
+    );
   } else if (p == 0) {
     valueP = Number(1 - q).toFixed(7);
     valueQ = q;
@@ -43,7 +49,7 @@ const maths = (N, n, x, xn, p, q, checkPoblation, check) => {
       });
     }
     total = Number(total).toFixed(7);
-    
+
     flag = "3";
     valuesResult = valuesResult.values;
     return { valuesResult, resultPoblation, total, flag };
@@ -82,10 +88,10 @@ const maths = (N, n, x, xn, p, q, checkPoblation, check) => {
     }
     total = Number(total).toFixed(7);
     resultPoblation = {
-        half: valuesResult.half,
-        deviation: valuesResult.deviation,
-        kurtosis: valuesResult.kurtosis,
-    }
+      half: valuesResult.half,
+      deviation: valuesResult.deviation,
+      kurtosis: valuesResult.kurtosis,
+    };
     valuesResult = valuesResult.values;
     flag = "2";
     return { valuesResult, resultPoblation, total, flag };
@@ -198,7 +204,7 @@ const calculatorPoblation = (n, p, N, q) => {
   }
 
   kurtosis = Number(Number(q - p) / Number(Math.sqrt(n * p * q))).toFixed(7);
-  bias = Number(3 + (1 - 6 * p * q) / Math.sqrt(N * p * q)).toFixed(7);
+  bias = Number(3 + (1 - 6 * p * q) / Math.sqrt(n * p * q)).toFixed(7);
   const resultPoblation = {
     half: half,
     correctionFactor: correctionFactor,
