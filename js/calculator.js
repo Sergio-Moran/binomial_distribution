@@ -193,11 +193,12 @@ const calculatorPoblation = (n, p, N, q) => {
   half = Number(n * p).toFixed(7);
 
   if (result == "FINITA") {
-    let resulte = infinite(n, p, N, q);
+    let resulte = finite(n, p, N, q);
     correctionFactor = resulte.correctionFactor;
     deviation = resulte.deviation;
   } else if (result == "INFINITA") {
-    deviation = Number(Math.sqrt(Number(n * p * q))).toFixed(7);
+    let resulte = infinity(n, p, q);
+    deviation = resulte.deviation;
   } else if (result == "HIPERGEOMÉTRICA") {
     half = Number((n * p) / N);
     deviation;
@@ -217,7 +218,7 @@ const calculatorPoblation = (n, p, N, q) => {
   return resultPoblation;
 };
 
-const infinite = (n, p, N, q) => {
+const finite = (n, p, N, q) => {
   let correctionFactor = 0;
   let deviation = 0;
 
@@ -229,6 +230,15 @@ const infinite = (n, p, N, q) => {
   );
 
   const result = { correctionFactor: correctionFactor, deviation: deviation };
+  return result;
+};
+
+const infinity = (n, p, q) => {
+  let deviation = 0;
+  deviation = Number(Math.sqrt(Number(n * p * q))).toFixed(7);
+  const result = {
+    deviation: deviation,
+  };
   return result;
 };
 
