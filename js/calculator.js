@@ -30,7 +30,7 @@ const maths = (N, n, x, xn, p, q, checkPoblation, check) => {
     if (x == xn) {
       return alert("x1 y x2 son iguales, colocar otro intervalo");
     }
-    valuesResult = calculatorPoblation(n, valueP, N, valueQ);
+    valuesResult = calculatorPoblation(n, valueP, N, valueQ, x);
     resultPoblation = valuesResult;
     if (x == 0) {
       valuesResult = calculators(0, xn, n, valueP);
@@ -183,7 +183,7 @@ const calculators = (x, xn, n, p, q) => {
  * @param {Number} q
  * @returns
  */
-const calculatorPoblation = (n, p, N, q) => {
+const calculatorPoblation = (n, p, N, q, x) => {
   let half = 0;
   let correctionFactor = 0;
   let deviation = 0;
@@ -200,8 +200,7 @@ const calculatorPoblation = (n, p, N, q) => {
     let resulte = infinity(n, p, q);
     deviation = resulte.deviation;
   } else if (result == "HIPERGEOMÉTRICA") {
-    half = Number((n * p) / N);
-    deviation;
+    let resulte = hypergeometric(n, p, N, q, x);
   }
 
   kurtosis = Number(Number(q - p) / Number(Math.sqrt(n * p * q))).toFixed(7);
@@ -218,6 +217,14 @@ const calculatorPoblation = (n, p, N, q) => {
   return resultPoblation;
 };
 
+/**
+ * Function when poblation is more than 5% and less than 20%
+ * @param {Number} n
+ * @param {Number} p
+ * @param {Number} N
+ * @param {Number} q
+ * @returns
+ */
 const finite = (n, p, N, q) => {
   let correctionFactor = 0;
   let deviation = 0;
@@ -233,6 +240,13 @@ const finite = (n, p, N, q) => {
   return result;
 };
 
+/**
+ * Function when the poblation is less than 5%
+ * @param {Number} n
+ * @param {Number} p
+ * @param {Number} q
+ * @returns
+ */
 const infinity = (n, p, q) => {
   let deviation = 0;
   deviation = Number(Math.sqrt(Number(n * p * q))).toFixed(7);
@@ -240,6 +254,17 @@ const infinity = (n, p, q) => {
     deviation: deviation,
   };
   return result;
+};
+
+const hypergeometric = (n, p, N, q) => {
+  let half = 0;
+  let deviation = 0;
+  let probability = 0;
+  half = Number((n * p) / N);
+  deviation =
+    Number(Math.sqrt(n * p * q)).toFixed(7) *
+    Number(Math.sqrt((N - n) / (N - 1))).toFixed(7);
+  
 };
 
 /**
@@ -251,7 +276,6 @@ const infinity = (n, p, q) => {
 const determineSampleType = (n, N) => {
   let sample = "";
   let result = Number((n * 100) / N).toFixed(2);
-
   if (result <= 5) {
     sample = "INFINITA";
   } else if (result > 5 && result < 20) {

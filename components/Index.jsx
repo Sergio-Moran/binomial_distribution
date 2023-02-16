@@ -13,8 +13,6 @@ const style = {
 const Index = () => {
   const [check, setCheck] = useState(false);
   const [checkPoblation, setCheckPoblation] = useState(false);
-  const [optionLessEqual, setOptionLessEqual] = useState(false);
-  const [optionMoreEqual, setOptionMoreEqual] = useState(false);
   const [data, setData] = useState({
     N: 0,
     n: 0,
@@ -22,7 +20,9 @@ const Index = () => {
     xn: 0,
     p: 0,
     q: 0,
+    k: 0,
   });
+  let a = false;
 
   const handlChange = (name, value) => {
     setData({
@@ -33,8 +33,6 @@ const Index = () => {
 
   const onChange = () => {
     setCheck(!check);
-    setOptionLessEqual(!optionLessEqual);
-    setOptionMoreEqual(!optionMoreEqual);
     if (check) {
       setData({
         N: data.N,
@@ -62,8 +60,33 @@ const Index = () => {
   };
 
   const clear = () => {
-    setData({ N: "", n: "", x: "", xn: "", p: "", q: "" });
+    setData({ N: "", n: "", x: "", xn: "", p: "", q: "", k: "" });
   };
+
+  if (checkPoblation) {
+    let result = Number((data.n * 100) / data.N).toFixed(2);
+    if (result > 20) {
+      a = true;
+    }else{
+      a = false;
+    }
+  }
+
+  const kInduvidual = (
+    <Row gutter={[16, 24]}>
+      <Col className="gutter-row" span={24}>
+        <label>
+          k (n individuos que...)
+          <Input
+            type="number"
+            id="k"
+            value={data.k}
+            onChange={(e) => handlChange(e.target.id, e.target.value)}
+          />
+        </label>
+      </Col>
+    </Row>
+  );
 
   return (
     <>
@@ -155,6 +178,7 @@ const Index = () => {
                 </label>
               </Col>
             </Row>
+            {a ? kInduvidual : ''}
             <br />
             <Row gutter={[16, 24]}>
               <Col className="gutter-row" span={24}>
@@ -163,8 +187,6 @@ const Index = () => {
                     props={data}
                     check={check}
                     checkPoblation={checkPoblation}
-                    optionMoreEqual={optionMoreEqual}
-                    optionLessEqual={optionLessEqual}
                   />
                 </label>
               </Col>
