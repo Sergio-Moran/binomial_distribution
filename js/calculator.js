@@ -193,14 +193,14 @@ const calculatorPoblation = (n, p, N, q) => {
   half = Number(n * p).toFixed(7);
 
   if (result == "FINITA") {
-    correctionFactor = Math.sqrt(
-      Number(N - n).toFixed(7) / Number(N - 1).toFixed(7)
-    ).toFixed(7);
-    deviation = Number(correctionFactor * Math.sqrt(Number(n * p * q))).toFixed(
-      7
-    );
+    let resulte = infinite(n, p, N, q);
+    correctionFactor = resulte.correctionFactor;
+    deviation = resulte.deviation;
   } else if (result == "INFINITA") {
     deviation = Number(Math.sqrt(Number(n * p * q))).toFixed(7);
+  } else if (result == "HIPERGEOMÉTRICA") {
+    half = Number((n * p) / N);
+    deviation;
   }
 
   kurtosis = Number(Number(q - p) / Number(Math.sqrt(n * p * q))).toFixed(7);
@@ -216,6 +216,22 @@ const calculatorPoblation = (n, p, N, q) => {
 
   return resultPoblation;
 };
+
+const infinite = (n, p, N, q) => {
+  let correctionFactor = 0;
+  let deviation = 0;
+
+  correctionFactor = Math.sqrt(
+    Number(N - n).toFixed(7) / Number(N - 1).toFixed(7)
+  ).toFixed(7);
+  deviation = Number(correctionFactor * Math.sqrt(Number(n * p * q))).toFixed(
+    7
+  );
+
+  const result = { correctionFactor: correctionFactor, deviation: deviation };
+  return result;
+};
+
 /**
  * Determine the type of population
  * @param {Number} n
@@ -228,8 +244,10 @@ const determineSampleType = (n, N) => {
 
   if (result <= 5) {
     sample = "INFINITA";
-  } else if (result > 5) {
+  } else if (result > 5 && result < 20) {
     sample = "FINITA";
+  } else if (result >= 20) {
+    sample = "HIPERGEOMÉTRICA";
   }
   return sample;
 };
