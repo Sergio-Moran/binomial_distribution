@@ -41,6 +41,7 @@ const Index = () => {
         xn: "",
         p: data.p,
         q: data.q,
+        k: data.k,
       });
     }
   };
@@ -55,6 +56,7 @@ const Index = () => {
         xn: data.xn,
         p: data.p,
         q: data.q,
+        k: data.k,
       });
     }
   };
