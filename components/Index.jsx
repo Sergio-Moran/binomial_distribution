@@ -200,10 +200,10 @@ const Index = () => {
         </div>
 
         <Col className="gutter-row" span={14}>
-          <Chart props={data} />
+          <Chart props={data} checkK={variableK} />
           <br />
           <div hidden={!checkPoblation}>
-            <BiasChart props={data} />
+            <BiasChart props={data} checkK={variableK} />
           </div>
         </Col>
       </Row>

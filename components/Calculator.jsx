@@ -29,7 +29,7 @@ const Calculator = ({ props, check, checkPoblation, checkK }) => {
       setResult(statisticalData.total);
       setFlag(statisticalData.flag);
     } catch (e) {
-      console.log(e);
+      /* console.log(e); */
     }
   };
 
