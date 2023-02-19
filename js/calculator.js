@@ -1,19 +1,49 @@
-const maths = (N, n, x, xn, p, q, checkPoblation, check) => {
+const maths = (N, n, x, xn, p, q, k, checkPoblation, check, checkK) => {
   let valuesResult;
   let resultPoblation = 0;
   let total = 0;
   let valueQ = 0;
   let valueP = 0;
+  let valueK = 0;
   let flag = "";
-
-  if (N < 0 || n < 0 || x < 0 || xn < 0 || p < 0 || q < 0) {
+  console.log(checkK);
+  if (N <= 0 || n < 0 || x < 0 || xn < 0 || p < 0 || q < 0 || k < 0) {
     return alert("No coloque valores negativos");
   }
 
-  if (p == 0 && q == 0) {
+  switch (checkK) {
+    case p != 0 && q != 0 && k != 0:
+      valueP = p;
+      valueQ = q;
+      valueK = k;
+      break;
+    case p != 0 && k == 0 && q == 0:
+      valueQ = Number(1 - p).toFixed(7);
+      valueK = Number(p * N).toFixed(7);
+      valueP = p;
+      break;
+
+    case q != 0 && p == 0 && k == 0:
+      valueP = Number(1 - q).toFixed(7);
+      valueK = Number(valueP * N).toFixed(7);
+      valueQ = q;
+      break;
+
+    case k != 0 && p == 0 && q == 0:
+      valueP = Number(k / N).toFixed(7);
+      valueQ = Number(1 - valueP).toFixed(7);
+      valueK = k;
+      break;
+
+    default:
+      break;
+  }
+
+  if (p == 0 && q == 0 && k == 0) {
     return alert(
       "La probabilidad de exito o de fracaso no pueden estar vacias"
     );
+  } else if (checkK) {
   } else if (p == 0) {
     valueP = Number(1 - q).toFixed(7);
     valueQ = q;
@@ -57,7 +87,7 @@ const maths = (N, n, x, xn, p, q, checkPoblation, check) => {
 
   /* When we have N */
   if (checkPoblation && !check) {
-    valuesResult = calculatorPoblation(n, valueP, N, valueQ);
+    valuesResult = calculatorPoblation(n, valueP, N, valueQ, k);
     resultPoblation = valuesResult;
     valuesResult = calculator(n, x, valueP);
     flag = "4";
@@ -183,7 +213,7 @@ const calculators = (x, xn, n, p, q) => {
  * @param {Number} q
  * @returns
  */
-const calculatorPoblation = (n, p, N, q, x) => {
+const calculatorPoblation = (n, p, N, q, x, k) => {
   let half = 0;
   let correctionFactor = 0;
   let deviation = 0;
@@ -200,7 +230,7 @@ const calculatorPoblation = (n, p, N, q, x) => {
     let resulte = infinity(n, p, q);
     deviation = resulte.deviation;
   } else if (result == "HIPERGEOMÉTRICA") {
-    let resulte = hypergeometric(n, p, N, q, x);
+    let resulte = hypergeometric(n, p, N, q, x, k);
   }
 
   kurtosis = Number(Number(q - p) / Number(Math.sqrt(n * p * q))).toFixed(7);
@@ -256,7 +286,7 @@ const infinity = (n, p, q) => {
   return result;
 };
 
-const hypergeometric = (n, p, N, q) => {
+const hypergeometric = (n, p, N, q, k) => {
   let half = 0;
   let deviation = 0;
   let probability = 0;
@@ -264,7 +294,6 @@ const hypergeometric = (n, p, N, q) => {
   deviation =
     Number(Math.sqrt(n * p * q)).toFixed(7) *
     Number(Math.sqrt((N - n) / (N - 1))).toFixed(7);
-  
 };
 
 /**

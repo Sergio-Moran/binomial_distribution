@@ -22,7 +22,7 @@ const Index = () => {
     q: 0,
     k: 0,
   });
-  let a = false;
+  let variableK = false;
 
   const handlChange = (name, value) => {
     setData({
@@ -66,26 +66,29 @@ const Index = () => {
   if (checkPoblation) {
     let result = Number((data.n * 100) / data.N).toFixed(2);
     if (result > 20) {
-      a = true;
-    }else{
-      a = false;
+      variableK = true;
+    } else {
+      variableK = false;
     }
   }
 
   const kInduvidual = (
-    <Row gutter={[16, 24]}>
-      <Col className="gutter-row" span={24}>
-        <label>
-          k (n individuos que...)
-          <Input
-            type="number"
-            id="k"
-            value={data.k}
-            onChange={(e) => handlChange(e.target.id, e.target.value)}
-          />
-        </label>
-      </Col>
-    </Row>
+    <>
+      <br />
+      <Row gutter={[16, 24]}>
+        <Col className="gutter-row" span={24}>
+          <label>
+            k (n individuos que...)
+            <Input
+              type="number"
+              id="k"
+              value={data.k}
+              onChange={(e) => handlChange(e.target.id, e.target.value)}
+            />
+          </label>
+        </Col>
+      </Row>
+    </>
   );
 
   return (
@@ -112,6 +115,7 @@ const Index = () => {
                   </label>
                 </div>
                 <label>
+                  <br />
                   n (número de pruebas)
                   <Input
                     type="number"
@@ -178,7 +182,7 @@ const Index = () => {
                 </label>
               </Col>
             </Row>
-            {a ? kInduvidual : ''}
+            {variableK ? kInduvidual : ""}
             <br />
             <Row gutter={[16, 24]}>
               <Col className="gutter-row" span={24}>
@@ -187,6 +191,7 @@ const Index = () => {
                     props={data}
                     check={check}
                     checkPoblation={checkPoblation}
+                    checkK={variableK}
                   />
                 </label>
               </Col>
