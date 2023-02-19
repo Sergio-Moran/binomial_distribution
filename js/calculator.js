@@ -239,6 +239,15 @@ const calculators = (x, xn, n, p, q) => {
   return result;
 };
 
+/**
+ * Function in charge of calculating the probability of a ranch of values when it is a case of hypergeometric type
+ * @param {Number} n 
+ * @param {Number} N 
+ * @param {Number} x 
+ * @param {Number} xn 
+ * @param {Number} k 
+ * @returns 
+ */
 const calculatorsHypergeometric = (n, N, x, xn, k) => {
   let values = [];
   let valueNK = factorial(Number(N - k));
@@ -313,6 +322,14 @@ const calculatorPoblation = (n, p, N, q, x, k) => {
   return resultPoblation;
 };
 
+/**
+ * Function in charge of calculating the probability when it is a case of hypergeometric type
+ * @param {Number} n 
+ * @param {Number} N 
+ * @param {Number} x 
+ * @param {Number} k 
+ * @returns 
+ */
 const calculatorHypergeometric = (n, N, x, k) => {
   let valueNK = factorial(Number(N - k));
   let valueK = factorial(k);
@@ -371,6 +388,16 @@ const infinity = (n, p, q) => {
   return result;
 };
 
+/**
+ * Function in charge of calculating the deviation and mean when it is a case of hypergeometric type
+ * @param {Number} n 
+ * @param {Number} p 
+ * @param {Number} N 
+ * @param {Number} q 
+ * @param {Number} x 
+ * @param {Number} k 
+ * @returns 
+ */
 const hypergeometric = (n, p, N, q, x, k) => {
   let half = 0;
   let deviation = 0;
@@ -402,6 +429,7 @@ const determineSampleType = (n, N) => {
   }
   return sample;
 };
+
 /**
  * In charge of doing the calculations for the factorials
  * @param {Number} num
