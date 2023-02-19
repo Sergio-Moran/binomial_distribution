@@ -3,7 +3,7 @@ import { Button, Col, Row } from "antd";
 import Cards from "./Cards";
 import { maths } from "../js/calculator";
 
-const Calculator = ({ props, check, checkPoblation, optionMoreEqual, optionLessEqual }) => {
+const Calculator = ({ props, check, checkPoblation, checkK }) => {
   const [size, setSize] = useState("large");
   const [result, setResult] = useState();
   const [resultPoblation, setResultPoblation] = useState();
@@ -19,15 +19,17 @@ const Calculator = ({ props, check, checkPoblation, optionMoreEqual, optionLessE
         props.xn,
         props.p,
         props.q,
+        props.k,
         checkPoblation,
-        check
+        check,
+        checkK
       );
       setResultPoblation(statisticalData.resultPoblation);
       setResults(statisticalData.valuesResult);
       setResult(statisticalData.total);
       setFlag(statisticalData.flag);
     } catch (e) {
-      console.log(e);
+      /* console.log(e); */
     }
   };
 

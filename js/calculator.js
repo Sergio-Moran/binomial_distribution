@@ -1,28 +1,76 @@
-const maths = (N, n, x, xn, p, q, checkPoblation, check) => {
+const maths = (N, n, x, xn, p, q, k, checkPoblation, check, checkK) => {
   let valuesResult;
   let resultPoblation = 0;
   let total = 0;
   let valueQ = 0;
   let valueP = 0;
+  let valueK = 0;
   let flag = "";
-
-  if (N < 0 || n < 0 || x < 0 || xn < 0 || p < 0 || q < 0) {
+  if (N < 0 || n < 0 || x < 0 || xn < 0 || p < 0 || q < 0 || k < 0) {
     return alert("No coloque valores negativos");
   }
 
-  if (p == 0 && q == 0) {
-    return alert(
-      "La probabilidad de exito o de fracaso no pueden estar vacias"
-    );
-  } else if (p == 0) {
-    valueP = Number(1 - q).toFixed(7);
-    valueQ = q;
-  } else if (q == 0) {
-    valueQ = Number(1 - p).toFixed(7);
-    valueP = p;
+  if (!checkK) {
+    if (p == 0 && q == 0 && k == 0) {
+      return alert(
+        "La probabilidad de exito o de fracaso no pueden estar vacias"
+      );
+    } else if (p == 0) {
+      valueP = Number(1 - q).toFixed(7);
+      valueQ = q;
+    } else if (q == 0) {
+      valueQ = Number(1 - p).toFixed(7);
+      valueP = p;
+    } else {
+      valueQ = q;
+      valueP = p;
+    }
   } else {
-    valueQ = q;
-    valueP = p;
+    switch (checkK) {
+      case p != 0 && q != 0 && k != 0:
+        valueP = p;
+        valueQ = q;
+        valueK = k;
+        break;
+
+      case p != 0 && k == 0 && q == 0:
+        valueQ = Number(1 - p).toFixed(7);
+        valueK = Number(p * N).toFixed(7);
+        valueP = p;
+        break;
+
+      case q != 0 && p == 0 && k == 0:
+        valueP = Number(1 - q).toFixed(7);
+        valueK = Number(valueP * N).toFixed(7);
+        valueQ = q;
+        break;
+
+      case k != 0 && p == 0 && q == 0:
+        valueP = Number(k / N).toFixed(7);
+        valueQ = Number(1 - valueP).toFixed(7);
+        valueK = k;
+        break;
+
+      case p != 0 && q != 0 && k == 0:
+        valueP = p;
+        valueQ = q;
+        valueK = Number(p * N).toFixed(7);
+        break;
+
+      case p != 0 && q == 0 && k != 0:
+        valueP = p;
+        valueQ = Number(1 - valueP).toFixed(7);
+        valueK = Number(p * N).toFixed(7);
+        break;
+
+      case q != 0 && p == 0 && k != 0:
+        valueP = Number(1 - q).toFixed(7);
+        valueQ = q;
+        valueK = Number(valueP * N).toFixed(7);
+        break;
+      default:
+        break;
+    }
   }
 
   /* When we have N and x to xn */
@@ -30,7 +78,7 @@ const maths = (N, n, x, xn, p, q, checkPoblation, check) => {
     if (x == xn) {
       return alert("x1 y x2 son iguales, colocar otro intervalo");
     }
-    valuesResult = calculatorPoblation(n, valueP, N, valueQ);
+    valuesResult = calculatorPoblation(n, valueP, N, valueQ, x, valueK);
     resultPoblation = valuesResult;
     if (x == 0) {
       valuesResult = calculators(0, xn, n, valueP);
@@ -57,9 +105,13 @@ const maths = (N, n, x, xn, p, q, checkPoblation, check) => {
 
   /* When we have N */
   if (checkPoblation && !check) {
-    valuesResult = calculatorPoblation(n, valueP, N, valueQ);
+    valuesResult = calculatorPoblation(n, valueP, N, valueQ, x, valueK);
     resultPoblation = valuesResult;
-    valuesResult = calculator(n, x, valueP);
+    if (valuesResult.flagSample == "HIPERGEOMÉTRICA") {
+      valuesResult = calculatorHypergeometric(n, N, x, valueK);
+    } else {
+      valuesResult = calculator(n, x, valueP);
+    }
     flag = "4";
     valuesResult = valuesResult.probability;
     return { valuesResult, resultPoblation, total, flag };
@@ -183,7 +235,7 @@ const calculators = (x, xn, n, p, q) => {
  * @param {Number} q
  * @returns
  */
-const calculatorPoblation = (n, p, N, q) => {
+const calculatorPoblation = (n, p, N, q, x, k) => {
   let half = 0;
   let correctionFactor = 0;
   let deviation = 0;
@@ -193,14 +245,16 @@ const calculatorPoblation = (n, p, N, q) => {
   half = Number(n * p).toFixed(7);
 
   if (result == "FINITA") {
-    let resulte = infinite(n, p, N, q);
+    let resulte = finite(n, p, N, q);
     correctionFactor = resulte.correctionFactor;
     deviation = resulte.deviation;
   } else if (result == "INFINITA") {
-    deviation = Number(Math.sqrt(Number(n * p * q))).toFixed(7);
+    let resulte = infinity(n, p, q);
+    deviation = resulte.deviation;
   } else if (result == "HIPERGEOMÉTRICA") {
-    half = Number((n * p) / N);
-    deviation;
+    let resulte = hypergeometric(n, p, N, q, x, k);
+    half = resulte.half;
+    deviation = resulte.deviation;
   }
 
   kurtosis = Number(Number(q - p) / Number(Math.sqrt(n * p * q))).toFixed(7);
@@ -213,11 +267,38 @@ const calculatorPoblation = (n, p, N, q) => {
     bia: bias,
     flagSample: result,
   };
-
   return resultPoblation;
 };
 
-const infinite = (n, p, N, q) => {
+const calculatorHypergeometric = (n, N, x, k) => {
+  let valueNK = factorial(Number(N - k));
+  let valueK = factorial(k);
+  let valuen = factorial(n);
+  let valueNn = factorial(Number(N - n));
+  let valuenx = factorial(Number(n - x));
+  let valueNKnx = factorial(Number(N - k - n + Number(x)));
+  let valuex = factorial(x);
+  let valueKx = factorial(Number(k - x));
+  let valueN = factorial(N);
+  let probability = 0;
+
+  probability = Number(
+    (valueNK * valueK * valuen * valueNn) /
+      (valuenx * valueNKnx * valuex * valueKx * valueN)
+  ).toFixed(7);
+  const result = { probability: probability };
+  return result;
+};
+
+/**
+ * Function when poblation is more than 5% and less than 20%
+ * @param {Number} n
+ * @param {Number} p
+ * @param {Number} N
+ * @param {Number} q
+ * @returns
+ */
+const finite = (n, p, N, q) => {
   let correctionFactor = 0;
   let deviation = 0;
 
@@ -233,6 +314,35 @@ const infinite = (n, p, N, q) => {
 };
 
 /**
+ * Function when the poblation is less than 5%
+ * @param {Number} n
+ * @param {Number} p
+ * @param {Number} q
+ * @returns
+ */
+const infinity = (n, p, q) => {
+  let deviation = 0;
+  deviation = Number(Math.sqrt(Number(n * p * q))).toFixed(7);
+  const result = {
+    deviation: deviation,
+  };
+  return result;
+};
+
+const hypergeometric = (n, p, N, q, x, k) => {
+  let half = 0;
+  let deviation = 0;
+
+  half = Number((n * k) / N);
+  deviation =
+    Number(Math.sqrt(n * p * q)).toFixed(7) *
+    Number(Math.sqrt((N - n) / (N - 1))).toFixed(7);
+
+  const result = { half: half, deviation: deviation };
+  return result;
+};
+
+/**
  * Determine the type of population
  * @param {Number} n
  * @param {Number} N
@@ -241,7 +351,6 @@ const infinite = (n, p, N, q) => {
 const determineSampleType = (n, N) => {
   let sample = "";
   let result = Number((n * 100) / N).toFixed(2);
-
   if (result <= 5) {
     sample = "INFINITA";
   } else if (result > 5 && result < 20) {
