@@ -81,17 +81,30 @@ const maths = (N, n, x, xn, p, q, k, checkPoblation, check, checkK) => {
     valuesResult = calculatorPoblation(n, valueP, N, valueQ, x, valueK);
     resultPoblation = valuesResult;
     if (x == 0) {
-      valuesResult = calculators(0, xn, n, valueP);
+      if (checkK) {
+        valuesResult = calculatorsHypergeometric(n, N, 0, xn, valueK);
+      } else {
+        valuesResult = calculators(0, xn, n, valueP);
+      }
       valuesResult.values.forEach((e) => {
         total += Number(e);
       });
     } else if (x > xn) {
-      valuesResult = calculators(xn, x, n, valueP);
+      if (checkK) {
+        valuesResult = calculatorsHypergeometric(n, N, xn, x, valueK);
+      } else {
+        valuesResult = calculators(xn, x, n, valueP);
+      }
       valuesResult.values.forEach((e) => {
         total += Number(e);
       });
     } else if (x < xn) {
-      valuesResult = calculators(x, xn, n, valueP);
+      if (checkK) {
+        valuesResult = calculatorsHypergeometric(n, N, x, xn, valueK);
+      } else {
+        valuesResult = calculators(x, xn, n, valueP);
+      }
+
       valuesResult.values.forEach((e) => {
         total += Number(e);
       });
@@ -227,6 +240,45 @@ const calculators = (x, xn, n, p, q) => {
 };
 
 /**
+ * Function in charge of calculating the probability of a ranch of values when it is a case of hypergeometric type
+ * @param {Number} n 
+ * @param {Number} N 
+ * @param {Number} x 
+ * @param {Number} xn 
+ * @param {Number} k 
+ * @returns 
+ */
+const calculatorsHypergeometric = (n, N, x, xn, k) => {
+  let values = [];
+  let valueNK = factorial(Number(N - k));
+  let valueK = factorial(k);
+  let valuen = factorial(n);
+  let valueNn = factorial(Number(N - n));
+  let valuenx = 0;
+  let valueNKnx = 0;
+  let valuex = 0;
+  let valueKx = 0;
+  let valueN = factorial(N);
+  let probability = 0;
+
+  for (var i = x; i <= xn; i++) {
+    valuenx = factorial(Number(n - i));
+    valueNKnx = factorial(Number(N - k - n + Number(i)));
+    valueKx = factorial(Number(k - i));
+    valuex = factorial(x);
+    probability = Number(
+      (valueNK * valueK * valuen * valueNn) /
+        (valuenx * valueNKnx * valuex * valueKx * valueN)
+    ).toFixed(7);
+    values.push(probability);
+  }
+  const result = {
+    values: values,
+  };
+  return result;
+};
+
+/**
  * This function is responsible for calculating the mean, correction factor when a FINITE flag is returned, the kurtosis deviation and the bias.
  * Returns an object with all these values plus the flag of what type of distribution it is
  * @param {Number} n
@@ -270,6 +322,14 @@ const calculatorPoblation = (n, p, N, q, x, k) => {
   return resultPoblation;
 };
 
+/**
+ * Function in charge of calculating the probability when it is a case of hypergeometric type
+ * @param {Number} n 
+ * @param {Number} N 
+ * @param {Number} x 
+ * @param {Number} k 
+ * @returns 
+ */
 const calculatorHypergeometric = (n, N, x, k) => {
   let valueNK = factorial(Number(N - k));
   let valueK = factorial(k);
@@ -281,7 +341,6 @@ const calculatorHypergeometric = (n, N, x, k) => {
   let valueKx = factorial(Number(k - x));
   let valueN = factorial(N);
   let probability = 0;
-
   probability = Number(
     (valueNK * valueK * valuen * valueNn) /
       (valuenx * valueNKnx * valuex * valueKx * valueN)
@@ -329,6 +388,16 @@ const infinity = (n, p, q) => {
   return result;
 };
 
+/**
+ * Function in charge of calculating the deviation and mean when it is a case of hypergeometric type
+ * @param {Number} n 
+ * @param {Number} p 
+ * @param {Number} N 
+ * @param {Number} q 
+ * @param {Number} x 
+ * @param {Number} k 
+ * @returns 
+ */
 const hypergeometric = (n, p, N, q, x, k) => {
   let half = 0;
   let deviation = 0;
@@ -360,6 +429,7 @@ const determineSampleType = (n, N) => {
   }
   return sample;
 };
+
 /**
  * In charge of doing the calculations for the factorials
  * @param {Number} num
