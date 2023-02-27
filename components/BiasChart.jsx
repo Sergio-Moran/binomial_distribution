@@ -25,7 +25,7 @@ const BiasChart = ({ props, checkK }) => {
     }
   } else {
     switch (checkK) {
-      case props.p != 0 && q != 0 && k != 0:
+      case props.p != 0 && props.q != 0 && props.k != 0:
         valueP = props.p;
         valueQ = props.q;
         valueK = props.k;
@@ -46,7 +46,7 @@ const BiasChart = ({ props, checkK }) => {
       case props.k != 0 && props.p == 0 && props.q == 0:
         valueP = Number(props.k / props.N).toFixed(7);
         valueQ = Number(1 - valueP).toFixed(7);
-        valueK = k;
+        valueK = props.k;
         break;
 
       case props.p != 0 && props.q != 0 && props.k == 0:
@@ -56,7 +56,7 @@ const BiasChart = ({ props, checkK }) => {
         break;
 
       case props.p != 0 && props.q == 0 && props.k != 0:
-        valueP = p;
+        valueP = props.p;
         valueQ = Number(1 - valueP).toFixed(7);
         valueK = Number(props.p * props.N).toFixed(7);
         break;

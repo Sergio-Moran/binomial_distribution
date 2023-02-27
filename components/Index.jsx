@@ -12,6 +12,7 @@ const style = {
 
 const Index = () => {
   const [check, setCheck] = useState(false);
+  const [checkApproach, setCheckApproach] = useState(false);
   const [checkPoblation, setCheckPoblation] = useState(false);
   const [data, setData] = useState({
     N: 0,
@@ -61,6 +62,10 @@ const Index = () => {
     }
   };
 
+  const onApproach = () => {
+    setCheckApproach(!checkApproach);
+  };
+
   const clear = () => {
     setData({ N: "", n: "", x: "", xn: "", p: "", q: "", k: "" });
   };
@@ -100,6 +105,7 @@ const Index = () => {
           <Col className="gutter-row" span="all">
             <Checkbox onChange={onChange}>Rango</Checkbox>
             <Checkbox onChange={onPoblation}>Población</Checkbox>
+            <Checkbox onChange={onApproach}>Aproximación</Checkbox>
             <Button type="primary" onClick={clear}>
               Limpiar
             </Button>
@@ -194,6 +200,7 @@ const Index = () => {
                     check={check}
                     checkPoblation={checkPoblation}
                     checkK={variableK}
+                    approach={checkApproach}
                   />
                 </label>
               </Col>
