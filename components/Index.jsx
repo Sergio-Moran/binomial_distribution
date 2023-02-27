@@ -17,6 +17,7 @@ const Index = () => {
   const [data, setData] = useState({
     N: 0,
     n: 0,
+    T: 0,
     x: 0,
     xn: 0,
     p: 0,
@@ -38,6 +39,7 @@ const Index = () => {
       setData({
         N: data.N,
         n: data.n,
+        T: data.T,
         x: data.x,
         xn: "",
         p: data.p,
@@ -51,8 +53,9 @@ const Index = () => {
     setCheckPoblation(!checkPoblation);
     if (checkPoblation) {
       setData({
-        N: "",
+        N: 0,
         n: data.n,
+        T: 0,
         x: data.x,
         xn: data.xn,
         p: data.p,
@@ -64,10 +67,22 @@ const Index = () => {
 
   const onApproach = () => {
     setCheckApproach(!checkApproach);
+    if (checkApproach) {
+      setData({
+        N: data.N,
+        n: data.n,
+        T: 0,
+        x: data.x,
+        xn: "",
+        p: data.p,
+        q: data.q,
+        k: data.k,
+      });
+    }
   };
 
   const clear = () => {
-    setData({ N: "", n: "", x: "", xn: "", p: "", q: "", k: "" });
+    setData({ N: "", n: "", T: "", x: "", xn: "", p: "", q: "", k: "" });
   };
 
   if (checkPoblation) {
@@ -137,6 +152,17 @@ const Index = () => {
             <br />
             <Row gutter={[16, 24]}>
               <Col className="gutter-row" span={24}>
+                <div hidden={!checkApproach}>
+                  <label>
+                    T (Que es ?)
+                    <Input
+                      type="number"
+                      id="T"
+                      value={data.T}
+                      onChange={(e) => handlChange(e.target.id, e.target.value)}
+                    />
+                  </label>
+                </div>
                 <label>
                   x1 (número de exitos)
                   <Input
