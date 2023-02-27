@@ -110,26 +110,25 @@ const Cards = ({ result, flag, results, resultPoblation }) => {
   } else if (flag == "5") {
     return (
       <Card title="Resultado" bordered={false}>
-        Es una poblacion {resultPoblation.flagSample}
+        La probabilidad por el metodo binomial es de:{" "}
+        <b>{results.binomialProbability}</b> ó del{" "}
+        <b>{Number(results.binomialProbability * 100).toFixed(2)}%</b>
         <br />
-        La probabilidad es de: {results} ó del{" "}
-        {Number(results * 100).toFixed(2)}%
+        La probabilidad por el metodo hipergeometrico es de:
         <br />
-        Media de : {resultPoblation.half}
+        <b>{results.hypergeometricProbability}</b> ó del{" "}
+        <b>{Number(results.hypergeometricProbability * 100).toFixed(2)}%</b>
         <br />
-        Factor de corrección : {resultPoblation.correctionFactor}
+        Curtosis : {results.kurtosis}{" "}
+        <b>
+          {results.kurtosis < 0
+            ? "PLATICÚRTICA"
+            : results.kurtosis == 0
+            ? "MESOCÚRTICA"
+            : "LEPTOCÚRTICA"}
+        </b>
         <br />
-        Desviación : {resultPoblation.deviation}
-        <br />
-        Curtosis : {resultPoblation.kurtosis}{" "}
-        {resultPoblation.kurtosis < 0
-          ? "PLATICÚRTICA"
-          : resultPoblation.kurtosis == 0
-          ? "MESOCÚRTICA"
-          : "LEPTOCÚRTICA"}
-        <br />
-        Sesgo : {resultPoblation.bia}
-        <br />
+        Sesgo : {results.bia}
       </Card>
     );
   }

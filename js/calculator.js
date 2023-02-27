@@ -85,6 +85,7 @@ const maths = (
     }
   }
 
+  /* When we need to do by approach */
   if (approach && checkK) {
     valuesResult = hypergeometricApproach(N, n, x, valueP, valueQ, valueK);
     flag = "5";
@@ -444,9 +445,13 @@ const hypergeometric = (n, p, N, q, x, k) => {
 const hypergeometricApproach = (N, n, x, p, q, k) => {
   let binomialResult = calculator(n, x, p, q);
   let hypergeometricResult = calculatorHypergeometric(n, N, x, k);
+  let kurtosis = Number(Number(q - p) / Number(Math.sqrt(n * p * q))).toFixed(7);
+  let bia = Number(3 + (1 - 6 * p * q) / Math.sqrt(n * p * q)).toFixed(7);
   const result = {
     binomialProbability: binomialResult.probability,
     hypergeometricProbability: hypergeometricResult.probability,
+    kurtosis: kurtosis,
+    bia: bia,
   };
   return result;
 };
