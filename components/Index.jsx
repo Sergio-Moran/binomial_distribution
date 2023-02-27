@@ -39,7 +39,6 @@ const Index = () => {
       setData({
         N: data.N,
         n: data.n,
-        T: data.T,
         x: data.x,
         xn: "",
         p: data.p,
@@ -55,7 +54,6 @@ const Index = () => {
       setData({
         N: 0,
         n: data.n,
-        T: 0,
         x: data.x,
         xn: data.xn,
         p: data.p,
@@ -71,9 +69,8 @@ const Index = () => {
       setData({
         N: data.N,
         n: data.n,
-        T: 0,
         x: data.x,
-        xn: "",
+        xn: data.xn,
         p: data.p,
         q: data.q,
         k: data.k,
@@ -82,7 +79,7 @@ const Index = () => {
   };
 
   const clear = () => {
-    setData({ N: "", n: "", T: "", x: "", xn: "", p: "", q: "", k: "" });
+    setData({ N: "", n: "", x: "", xn: "", p: "", q: "", k: "" });
   };
 
   if (checkPoblation) {
@@ -152,7 +149,7 @@ const Index = () => {
             <br />
             <Row gutter={[16, 24]}>
               <Col className="gutter-row" span={24}>
-                <div hidden={!checkApproach}>
+                {/* <div hidden={!checkApproach}>
                   <label>
                     T (Que es ?)
                     <Input
@@ -162,7 +159,7 @@ const Index = () => {
                       onChange={(e) => handlChange(e.target.id, e.target.value)}
                     />
                   </label>
-                </div>
+                </div> */}
                 <label>
                   x1 (número de exitos)
                   <Input
