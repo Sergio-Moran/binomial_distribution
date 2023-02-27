@@ -1,4 +1,16 @@
-const maths = (N, n, x, xn, p, q, k, checkPoblation, check, checkK) => {
+const maths = (
+  N,
+  n,
+  x,
+  xn,
+  p,
+  q,
+  k,
+  checkPoblation,
+  check,
+  checkK,
+  approach
+) => {
   let valuesResult;
   let resultPoblation = 0;
   let total = 0;
@@ -71,6 +83,14 @@ const maths = (N, n, x, xn, p, q, k, checkPoblation, check, checkK) => {
       default:
         break;
     }
+  }
+
+  if (approach && checkK) {
+    valuesResult = hypergeometricApproach(N, n, x, valueP, valueQ, valueK);
+    flag = "5";
+    return { valuesResult, resultPoblation, total, flag };
+  } else if (!checkK && approach) {
+    return alert("No cumple, solo se puede por distribución binomial ");
   }
 
   /* When we have N and x to xn */
@@ -241,12 +261,12 @@ const calculators = (x, xn, n, p, q) => {
 
 /**
  * Function in charge of calculating the probability of a ranch of values when it is a case of hypergeometric type
- * @param {Number} n 
- * @param {Number} N 
- * @param {Number} x 
- * @param {Number} xn 
- * @param {Number} k 
- * @returns 
+ * @param {Number} n
+ * @param {Number} N
+ * @param {Number} x
+ * @param {Number} xn
+ * @param {Number} k
+ * @returns
  */
 const calculatorsHypergeometric = (n, N, x, xn, k) => {
   let values = [];
@@ -324,11 +344,11 @@ const calculatorPoblation = (n, p, N, q, x, k) => {
 
 /**
  * Function in charge of calculating the probability when it is a case of hypergeometric type
- * @param {Number} n 
- * @param {Number} N 
- * @param {Number} x 
- * @param {Number} k 
- * @returns 
+ * @param {Number} n
+ * @param {Number} N
+ * @param {Number} x
+ * @param {Number} k
+ * @returns
  */
 const calculatorHypergeometric = (n, N, x, k) => {
   let valueNK = factorial(Number(N - k));
@@ -390,13 +410,13 @@ const infinity = (n, p, q) => {
 
 /**
  * Function in charge of calculating the deviation and mean when it is a case of hypergeometric type
- * @param {Number} n 
- * @param {Number} p 
- * @param {Number} N 
- * @param {Number} q 
- * @param {Number} x 
- * @param {Number} k 
- * @returns 
+ * @param {Number} n
+ * @param {Number} p
+ * @param {Number} N
+ * @param {Number} q
+ * @param {Number} x
+ * @param {Number} k
+ * @returns
  */
 const hypergeometric = (n, p, N, q, x, k) => {
   let half = 0;
@@ -408,6 +428,26 @@ const hypergeometric = (n, p, N, q, x, k) => {
     Number(Math.sqrt((N - n) / (N - 1))).toFixed(7);
 
   const result = { half: half, deviation: deviation };
+  return result;
+};
+
+/**
+ *
+ * @param {Number} N
+ * @param {Number} n
+ * @param {Number} x
+ * @param {Number} p
+ * @param {Number} q
+ * @param {Number} k
+ * @returns
+ */
+const hypergeometricApproach = (N, n, x, p, q, k) => {
+  let binomialResult = calculator(n, x, p, q);
+  let hypergeometricResult = calculatorHypergeometric(n, N, x, k);
+  const result = {
+    binomialProbability: binomialResult.probability,
+    hypergeometricProbability: hypergeometricResult.probability,
+  };
   return result;
 };
 

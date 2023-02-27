@@ -15,7 +15,6 @@ const Calculator = ({ props, check, checkPoblation, checkK, approach }) => {
       let statisticalData = maths(
         props.N,
         props.n,
-        props.T,
         props.x,
         props.xn,
         props.p,
@@ -23,7 +22,8 @@ const Calculator = ({ props, check, checkPoblation, checkK, approach }) => {
         props.k,
         checkPoblation,
         check,
-        checkK
+        checkK,
+        approach
       );
       setResultPoblation(statisticalData.resultPoblation);
       setResults(statisticalData.valuesResult);

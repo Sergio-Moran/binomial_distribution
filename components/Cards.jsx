@@ -64,7 +64,8 @@ const Cards = ({ result, flag, results, resultPoblation }) => {
         <br />
         La resta con 1 es de {Number(1 - result).toFixed(7)}
         <br />ó del {Number((1 - result) * 100)}%
-        <br />Media de : {resultPoblation.half}
+        <br />
+        Media de : {resultPoblation.half}
         <br />
         Factor de corrección : {resultPoblation.correctionFactor}
         <br />
@@ -82,6 +83,31 @@ const Cards = ({ result, flag, results, resultPoblation }) => {
       </Card>
     );
   } else if (flag == "4") {
+    return (
+      <Card title="Resultado" bordered={false}>
+        Es una poblacion {resultPoblation.flagSample}
+        <br />
+        La probabilidad es de: {results} ó del{" "}
+        {Number(results * 100).toFixed(2)}%
+        <br />
+        Media de : {resultPoblation.half}
+        <br />
+        Factor de corrección : {resultPoblation.correctionFactor}
+        <br />
+        Desviación : {resultPoblation.deviation}
+        <br />
+        Curtosis : {resultPoblation.kurtosis}{" "}
+        {resultPoblation.kurtosis < 0
+          ? "PLATICÚRTICA"
+          : resultPoblation.kurtosis == 0
+          ? "MESOCÚRTICA"
+          : "LEPTOCÚRTICA"}
+        <br />
+        Sesgo : {resultPoblation.bia}
+        <br />
+      </Card>
+    );
+  } else if (flag == "5") {
     return (
       <Card title="Resultado" bordered={false}>
         Es una poblacion {resultPoblation.flagSample}
