@@ -3,7 +3,7 @@ import { Button, Col, Row } from "antd";
 import Cards from "./Cards";
 import { maths } from "../js/calculator";
 
-const Calculator = ({ props, check, checkPoblation, checkK, approach }) => {
+const Calculator = ({ props, check, checkPoblation, checkK, approach, lots }) => {
   const [size, setSize] = useState("large");
   const [result, setResult] = useState();
   const [resultPoblation, setResultPoblation] = useState();

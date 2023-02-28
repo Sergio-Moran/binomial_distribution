@@ -201,12 +201,12 @@ const calculator = (n, x, p, q) => {
   let half = 0;
   let deviation = 0;
   let kurtosis = 0;
-  let numerator = factorial(n);
+  let numerator = factorial(Number(n));
   let nLessX = factorial(Number(n - x));
   let xFactorial = factorial(x);
   let denominator = Number(nLessX * xFactorial).toFixed(7);
   let probability = Number(
-    (numerator / denominator) * Math.pow(p, x) * Math.pow(1 - p, n - x)
+    (numerator / denominator) * Math.pow(Number(p), Number(x)) * Math.pow(Number(1 - p), Number(n - x))
   ).toFixed(7);
   half = Number(n * p).toFixed(7);
   deviation = Number(Math.sqrt(Number(n * p * q))).toFixed(7);
