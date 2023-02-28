@@ -4,6 +4,7 @@ import styles from "../styles/Home.module.css";
 import BiasChart from "./BiasChart";
 import Calculator from "./Calculator";
 import Chart from "./Chart";
+import TableComponent from "./TableComponent";
 
 const style = {
   background: "#0092ff",
@@ -13,6 +14,7 @@ const style = {
 const Index = () => {
   const [check, setCheck] = useState(false);
   const [checkApproach, setCheckApproach] = useState(false);
+  const [checkLots, setCheckLots] = useState(false);
   const [checkPoblation, setCheckPoblation] = useState(false);
   const [data, setData] = useState({
     N: 0,
@@ -78,6 +80,10 @@ const Index = () => {
     }
   };
 
+  const onLots = () => {
+    setCheckLots(!checkLots);
+  };
+
   const clear = () => {
     setData({ N: "", n: "", x: "", xn: "", p: "", q: "", k: "" });
   };
@@ -121,6 +127,13 @@ const Index = () => {
             <Button type="primary" onClick={clear}>
               Limpiar
             </Button>
+            <div hidden={!check}>
+              <Row gutter={[16, 24]}>
+                <Col className="gutter-row" span="all">
+                  <Checkbox onChange={onLots}>Lotes</Checkbox>
+                </Col>
+              </Row>
+            </div>
             <Row gutter={[16, 24]}>
               <Col className="gutter-row" span={24}>
                 <div hidden={!checkPoblation}>
@@ -149,9 +162,9 @@ const Index = () => {
             <br />
             <Row gutter={[16, 24]}>
               <Col className="gutter-row" span={24}>
-                {/* <div hidden={!checkApproach}>
+                <div hidden={!checkLots}>
                   <label>
-                    T (Que es ?)
+                    Tolerancia
                     <Input
                       type="number"
                       id="T"
@@ -159,7 +172,7 @@ const Index = () => {
                       onChange={(e) => handlChange(e.target.id, e.target.value)}
                     />
                   </label>
-                </div> */}
+                </div>
                 <label>
                   x1 (número de exitos)
                   <Input
@@ -224,6 +237,7 @@ const Index = () => {
                     checkPoblation={checkPoblation}
                     checkK={variableK}
                     approach={checkApproach}
+                    lots={checkLots}
                   />
                 </label>
               </Col>
@@ -236,6 +250,10 @@ const Index = () => {
           <br />
           <div hidden={!checkPoblation}>
             <BiasChart props={data} checkK={variableK} />
+          </div>
+          <br />
+          <div hidden={!checkLots}>
+            <TableComponent props={data} />
           </div>
         </Col>
       </Row>
