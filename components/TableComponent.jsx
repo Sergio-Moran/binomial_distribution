@@ -49,7 +49,7 @@ const TableComponent = ({ props }) => {
       pp: Number(valuesResult.probability * 100).toFixed(2) + "%",
       ap: Number(aux * 100).toFixed(2) + "%",
     };
-    arrayY.push(valuesResult.probability);
+    arrayY.push(Number(valuesResult.probability * 100).toFixed(2));
     arrayX.push(i);
     dataArray.push(response);
   }
