@@ -1,7 +1,7 @@
 import { Button, Checkbox, Col, Input, Row } from "antd";
 import React, { useState } from "react";
-import { poisson } from "../js/poisson";
 import styles from "../styles/Home.module.css";
+import PoissonCalculator from "./PoissonCalculator";
 
 const style = {
   background: "#0092ff",
@@ -12,7 +12,7 @@ const Poisson = () => {
   const [data, setData] = useState({
     lambda: 0,
     numberX: 0,
-    propability: 0,
+    probability: 0,
     sample: 0,
     half: 0,
   });
@@ -23,8 +23,6 @@ const Poisson = () => {
       [name]: value,
     });
   };
-
-  poisson();
   return (
     <>
       <Row gutter={[16, 24]}>
@@ -65,8 +63,8 @@ const Poisson = () => {
                   p (probabilidad de que pase)
                   <Input
                     type="number"
-                    id="propability"
-                    value={data.propability}
+                    id="probability"
+                    value={data.probability}
                     onChange={(e) => handlChange(e.target.id, e.target.value)}
                   />
                   {}
@@ -105,14 +103,9 @@ const Poisson = () => {
             <Row gutter={[16, 24]}>
               <Col className="gutter-row" span={24}>
                 <label>
-                  {/* <Calculator
+                  <PoissonCalculator
                       props={data}
-                      check={check}
-                      checkPoblation={checkPoblation}
-                      checkK={variableK}
-                      approach={checkApproach}
-                      lots={checkLots}
-                    /> */}
+                    />
                 </label>
               </Col>
             </Row>
