@@ -29,6 +29,7 @@ const Index = () => {
     k: 0,
   });
   let variableK = false;
+  let poissonVariable = false;
 
   const handlChange = (name, value) => {
     setData({
@@ -103,6 +104,10 @@ const Index = () => {
     }
   }
 
+  if (poisson) {
+    poissonVariable = true;
+  }
+
   const kInduvidual = (
     <>
       <br />
@@ -119,6 +124,22 @@ const Index = () => {
           </label>
         </Col>
       </Row>
+    </>
+  );
+
+  const charts = (
+    <>
+      <Col className="gutter-row" span={14}>
+        <Chart props={data} checkK={variableK} />
+        <br />
+        <div hidden={!checkPoblation}>
+          <BiasChart props={data} checkK={variableK} />
+        </div>
+        <br />
+        <div hidden={!checkLots}>
+          <TableComponent props={data} />
+        </div>
+      </Col>
     </>
   );
 
@@ -260,18 +281,7 @@ const Index = () => {
             </div>
           </Col>
         </div>
-
-        <Col className="gutter-row" span={14}>
-          <Chart props={data} checkK={variableK} />
-          <br />
-          <div hidden={!checkPoblation}>
-            <BiasChart props={data} checkK={variableK} />
-          </div>
-          <br />
-          <div hidden={!checkLots}>
-            <TableComponent props={data} />
-          </div>
-        </Col>
+        {poissonVariable ? "" : charts}
       </Row>
     </>
   );
