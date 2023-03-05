@@ -2,6 +2,7 @@ import { Button, Checkbox, Col, Input, Row } from "antd";
 import React, { useState } from "react";
 import styles from "../styles/Home.module.css";
 import PoissonCalculator from "./PoissonCalculator";
+import PoissonChart from "./PoissonChart";
 
 const style = {
   background: "#0092ff",
@@ -103,27 +104,17 @@ const Poisson = () => {
             <Row gutter={[16, 24]}>
               <Col className="gutter-row" span={24}>
                 <label>
-                  <PoissonCalculator
-                      props={data}
-                    />
+                  <PoissonCalculator props={data} />
                 </label>
               </Col>
             </Row>
           </Col>
         </div>
-
-        <Col className="gutter-row" span={14}>
-          {/* <Chart props={data} checkK={variableK} />
-            <br />
-            <div hidden={!checkPoblation}>
-              <BiasChart props={data} checkK={variableK} />
-            </div>
-            <br />
-            <div hidden={!checkLots}>
-              <TableComponent props={data} />
-            </div> */}
-        </Col>
       </Row>
+      <Col className="gutter-row" span="all">
+          <PoissonChart props={data} />
+          <br />
+        </Col>
     </>
   );
 };

@@ -125,6 +125,32 @@ const calculateBias = (numberX, probability) => {
 };
 
 /**
+ * 
+ * @param {Number} lambda 
+ * @param {Number} numberX 
+ * @param {Number} probability 
+ * @param {Number} sample 
+ * @param {Number} half 
+ * @returns a number
+ */
+const tablePoissonChart = (lambda, numberX, probability, sample, half) => {
+  let internalHalf = 0;
+  let probabilities = 0;
+  let numberXFactorial = 0;
+  if (half != 0 || half != "") {
+    internalHalf = Number(half);
+  } else {
+    internalHalf = Number(probability * sample).toFixed(4);
+  }
+
+  numberXFactorial = factorial(numberX);
+  probabilities =
+    Math.pow(Number(internalHalf), Number(numberX)) /
+    (Number(numberXFactorial) * Math.pow(Number(euler), Number(internalHalf)));
+    return probabilities;
+};
+
+/**
  * In charge of doing the calculations for the factorials
  * @param {Number} num
  * @returns
@@ -137,4 +163,4 @@ const factorial = (num) => {
   }
 };
 
-export { poisson };
+export { poisson, tablePoissonChart };
