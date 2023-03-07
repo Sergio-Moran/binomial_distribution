@@ -10,7 +10,6 @@ const PoissonCalculator = ({ props }) => {
   const onMath = () => {
     try {
       let results = poisson(
-        Number(props.lambda),
         Number(props.numberX),
         Number(props.probability),
         Number(props.sample),

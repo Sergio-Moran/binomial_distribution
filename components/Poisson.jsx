@@ -11,7 +11,6 @@ const style = {
 
 const Poisson = () => {
   const [data, setData] = useState({
-    lambda: 0,
     numberX: 0,
     probability: 0,
     sample: 0,
@@ -29,21 +28,6 @@ const Poisson = () => {
       <Row gutter={[16, 24]}>
         <div className={styles.container}>
           <Col className="gutter-row" span="all">
-            <Row gutter={[16, 24]}>
-              <Col className="gutter-row" span={24}>
-                <label>
-                  <br />
-                  λ (Lambda)
-                  <Input
-                    type="number"
-                    id="lambda"
-                    value={data.lambda}
-                    onChange={(e) => handlChange(e.target.id, e.target.value)}
-                  />
-                </label>
-              </Col>
-            </Row>
-            <br />
             <Row gutter={[16, 24]}>
               <Col className="gutter-row" span={24}>
                 <label>

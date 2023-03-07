@@ -9,13 +9,11 @@ const PoissonChart = ({ props }) => {
 
   for (let i = 0; i <= props.numberX; i++) {
     let valuesResult = tablePoissonChart(
-      props.lambda,
       i,
       props.probability,
       props.sample,
       props.half
     );
-    console.log(valuesResult);
     arrayY.push(valuesResult);
     arrayX.push(i);
   }
