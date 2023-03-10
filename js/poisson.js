@@ -3,23 +3,29 @@ const euler = 2.71828;
 
 /**
  * Function in charge of calling the other functions for data processing
+ * @param {Number} poblation
  * @param {Number} numberX
  * @param {Number} numberX2
  * @param {Number} probability
  * @param {Number} valueQ
  * @param {Number} sample
  * @param {Number} half
+ * @param {Number} tar
  * @param {Boolean} checkApproach
+ * @param {Boolean} checkH
  * @returns Returns an alert or an object with the data already processed
  */
 const poisson = (
+  poblation,
   numberX,
   numberX2,
   probability,
   valueQ,
   sample,
   half,
-  checkApproach
+  tar,
+  checkApproach,
+  checkH
 ) => {
   let verify;
   let verifyH;
@@ -37,13 +43,28 @@ const poisson = (
     verify = verifyH.result;
     internalHalf = verifyH.half;
   }
-
   if (verify) {
-    if (checkApproach) {
+    if (checkH && checkApproach) {
+      return alert("Elija solo uno");
+    } else if (checkApproach) {
       finalProbability = poissonBinomial(numberX, numberX2, internalHalf);
       const result = {
         probability: finalProbability,
         flag: "7",
+      };
+      return result;
+    } else if (checkH) {
+      finalProbability = poissonHyper(
+        poblation,
+        numberX,
+        probability,
+        sample,
+        internalHalf,
+        tar
+      );
+      const result = {
+        probability: finalProbability,
+        flag: "8",
       };
       return result;
     } else {
@@ -160,9 +181,33 @@ const poissonBinomial = (numberX, numberX2, half) => {
   for (let i = numberX; i <= numberX2; i++) {
     let iFactorial = factorial(Number(i));
     probability += Number(
-      Math.pow(Number(half), Number(i)) / Number(iFactorial * Math.pow(Number(euler), Number(half)))
+      Math.pow(Number(half), Number(i)) /
+        Number(iFactorial * Math.pow(Number(euler), Number(half)))
     );
   }
+  return probability;
+};
+
+const poissonHyper = (poblation, numberX, probability, sample, half, tar) => {
+  let internalProbability = 0;
+  let internalHalf = 0;
+
+  if (probability == 0 || probability == "") {
+    internalProbability = Number(tar / poblation);
+  } else {
+    internalProbability = Number(probability);
+  }
+
+  if (half == 0 || half == "") {
+    internalHalf = Number(internalProbability * sample);
+  } else {
+    internalHalf = Number(half);
+  }
+  let iFactorial = factorial(Number(numberX));
+  probability = Number(
+    Math.pow(Number(internalHalf), Number(numberX)) /
+      Number(iFactorial * Math.pow(Number(euler), Number(internalHalf)))
+  );
   return probability;
 };
 

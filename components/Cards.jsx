@@ -151,14 +151,28 @@ const Cards = ({ result, flag, results, resultPoblation }) => {
         Sesgo : {Number(result.bias).toFixed(4)}
       </Card>
     );
-  }else if(flag == '7'){
+  } else if (flag == "7") {
     return (
       <Card title="Resultado" bordered={false}>
-        La suma de las probabilidad es de <b>{Number(result.probability).toFixed(4)}</b> ó
-        del <b>{Number(result.probability * 100).toFixed(2)}%</b>
+        La suma de las probabilidad es de{" "}
+        <b>{Number(result.probability).toFixed(4)}</b> ó del{" "}
+        <b>{Number(result.probability * 100).toFixed(2)}%</b>
         <br />
-        Uno menos la probabilidad es de <b>{Number(1 - result.probability).toFixed(4)}</b> ó
-        del <b>{Number((1- result.probability) * 100).toFixed(2)}%</b>
+        Uno menos la probabilidad es de{" "}
+        <b>{Number(1 - result.probability).toFixed(4)}</b> ó del{" "}
+        <b>{Number((1 - result.probability) * 100).toFixed(2)}%</b>
+      </Card>
+    );
+  } else if (flag == "8") {
+    return (
+      <Card title="Resultado" bordered={false}>
+        La suma de las probabilidad es de{" "}
+        <b>{Number(result.probability).toFixed(4)}</b> ó del{" "}
+        <b>{Number(result.probability * 100).toFixed(2)}%</b>
+        <br />
+        Uno menos la probabilidad es de{" "}
+        <b>{Number(1 - result.probability).toFixed(4)}</b> ó del{" "}
+        <b>{Number((1 - result.probability) * 100).toFixed(2)}%</b>
       </Card>
     );
   }

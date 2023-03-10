@@ -11,18 +11,24 @@ const style = {
 
 const Poisson = () => {
   const [checkApproach, setCheckApproach] = useState(false);
+  const [checkH, setCheckH] = useState(false);
   const [data, setData] = useState({
+    poblation: 0,
     numberX: 0,
     numberX2: 0,
     probability: 0,
     valueQ: 0,
     sample: 0,
     half: 0,
+    tar: 0,
   });
 
   const onApproach = () => {
     setCheckApproach(!checkApproach);
-    console.log("aproximacion");
+  };
+
+  const onApproachH = () => {
+    setCheckH(!checkH);
   };
 
   const handlChange = (name, value) => {
@@ -36,9 +42,21 @@ const Poisson = () => {
       <Row gutter={[16, 24]}>
         <div className={styles.container}>
           <Col className="gutter-row" span="all">
-            <Checkbox onChange={onApproach}>Aproximación</Checkbox>
+            <Checkbox onChange={onApproach}>Aproximación B</Checkbox>
+            <Checkbox onChange={onApproachH}>Aproximación H</Checkbox>
             <Row gutter={[16, 24]}>
               <Col className="gutter-row" span={24}>
+                <div hidden={!checkH}>
+                  <label>
+                    N
+                    <Input
+                      type="number"
+                      id="poblation"
+                      value={data.poblation}
+                      onChange={(e) => handlChange(e.target.id, e.target.value)}
+                    />
+                  </label>
+                </div>
                 <label>
                   x1 (número de intentos)
                   <Input
@@ -53,9 +71,9 @@ const Poisson = () => {
             <br />
             <Row gutter={[16, 24]}>
               <Col className="gutter-row" span={24}>
-              <div hidden={!checkApproach}>
+                <div hidden={!checkApproach}>
                   <label>
-                    x2 
+                    x2
                     <Input
                       type="number"
                       id="numberX2"
@@ -81,6 +99,17 @@ const Poisson = () => {
                       type="number"
                       id="valueQ"
                       value={data.valueQ}
+                      onChange={(e) => handlChange(e.target.id, e.target.value)}
+                    />
+                  </label>
+                </div>
+                <div hidden={!checkH}>
+                  <label>
+                    T
+                    <Input
+                      type="number"
+                      id="tar"
+                      value={data.tar}
                       onChange={(e) => handlChange(e.target.id, e.target.value)}
                     />
                   </label>
@@ -119,14 +148,21 @@ const Poisson = () => {
             <Row gutter={[16, 24]}>
               <Col className="gutter-row" span={24}>
                 <label>
-                  <PoissonCalculator props={data} checkApproach={checkApproach}/>
+                  <PoissonCalculator
+                    props={data}
+                    checkApproach={checkApproach}
+                    checkH={checkH}
+                  />
                 </label>
               </Col>
             </Row>
           </Col>
         </div>
         <Col className="gutter-row" span={12}>
-          <PoissonChart props={data} checkApproach={checkApproach} />
+          <PoissonChart
+            props={data}
+            checkApproach={checkApproach}
+          />
         </Col>
       </Row>
     </>
