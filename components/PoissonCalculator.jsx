@@ -3,7 +3,7 @@ import { Button, Col, Row } from "antd";
 import Cards from "./Cards";
 import { poisson } from "../js/poisson";
 
-const PoissonCalculator = ({ props }) => {
+const PoissonCalculator = ({ props,checkApproach }) => {
   const [size, setSize] = useState("large");
   const [result, setResult] = useState();
   const [flag, setFlag] = useState();
@@ -11,9 +11,12 @@ const PoissonCalculator = ({ props }) => {
     try {
       let results = poisson(
         Number(props.numberX),
+        Number(props.numberX2),
         Number(props.probability),
+        Number(props.valueQ),
         Number(props.sample),
-        Number(props.half)
+        Number(props.half),
+        checkApproach
       );
       setResult(results);
       setFlag(results.flag);

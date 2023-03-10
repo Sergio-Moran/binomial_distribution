@@ -4,12 +4,23 @@ const euler = 2.71828;
 /**
  * Function in charge of calling the other functions for data processing
  * @param {Number} numberX
+ * @param {Number} numberX2
  * @param {Number} probability
+ * @param {Number} valueQ
  * @param {Number} sample
  * @param {Number} half
+ * @param {Boolean} checkApproach
  * @returns Returns an alert or an object with the data already processed
  */
-const poisson = (numberX, probability, sample, half) => {
+const poisson = (
+  numberX,
+  numberX2,
+  probability,
+  valueQ,
+  sample,
+  half,
+  checkApproach
+) => {
   let verify;
   let verifyH;
   let finalProbability = 0;
@@ -28,19 +39,28 @@ const poisson = (numberX, probability, sample, half) => {
   }
 
   if (verify) {
-    finalProbability = calculateProbability(internalHalf, numberX);
-    deviation = calculateDeviation(probability, sample, half);
-    kurtosis = calculateKurtosis(numberX, probability);
-    bias = calculateBias(numberX, probability);
+    if (checkApproach) {
+      finalProbability = poissonBinomial(numberX, numberX2, internalHalf);
+      const result = {
+        probability: finalProbability,
+        flag: "7",
+      };
+      return result;
+    } else {
+      finalProbability = calculateProbability(internalHalf, numberX);
+      deviation = calculateDeviation(probability, sample, half);
+      kurtosis = calculateKurtosis(numberX, probability);
+      bias = calculateBias(numberX, probability);
 
-    const result = {
-      probability: finalProbability,
-      deviation: deviation,
-      kurtosis: kurtosis,
-      bias: bias,
-      flag: "6",
-    };
-    return result;
+      const result = {
+        probability: finalProbability,
+        deviation: deviation,
+        kurtosis: kurtosis,
+        bias: bias,
+        flag: "6",
+      };
+      return result;
+    }
   } else {
     return alert("La media excede el 10%, cambie el metodo de resolucion");
   }
@@ -133,6 +153,17 @@ const calculateBias = (numberX, probability) => {
         Math.sqrt(numberX * probability * probabilityQ)
   ).toFixed(7);
   return bias;
+};
+
+const poissonBinomial = (numberX, numberX2, half) => {
+  let probability = 0;
+  for (let i = numberX; i <= numberX2; i++) {
+    let iFactorial = factorial(Number(i));
+    probability += Number(
+      Math.pow(Number(half), Number(i)) / Number(iFactorial * Math.pow(Number(euler), Number(half)))
+    );
+  }
+  return probability;
 };
 
 /**

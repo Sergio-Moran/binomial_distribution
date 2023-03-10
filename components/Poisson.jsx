@@ -13,6 +13,7 @@ const Poisson = () => {
   const [checkApproach, setCheckApproach] = useState(false);
   const [data, setData] = useState({
     numberX: 0,
+    numberX2: 0,
     probability: 0,
     valueQ: 0,
     sample: 0,
@@ -52,6 +53,17 @@ const Poisson = () => {
             <br />
             <Row gutter={[16, 24]}>
               <Col className="gutter-row" span={24}>
+              <div hidden={!checkApproach}>
+                  <label>
+                    x2 
+                    <Input
+                      type="number"
+                      id="numberX2"
+                      value={data.numberX2}
+                      onChange={(e) => handlChange(e.target.id, e.target.value)}
+                    />
+                  </label>
+                </div>
                 <label>
                   p (probabilidad de que pase)
                   <Input
@@ -107,14 +119,14 @@ const Poisson = () => {
             <Row gutter={[16, 24]}>
               <Col className="gutter-row" span={24}>
                 <label>
-                  <PoissonCalculator props={data} />
+                  <PoissonCalculator props={data} checkApproach={checkApproach}/>
                 </label>
               </Col>
             </Row>
           </Col>
         </div>
-        <Col className="gutter-row" span={14}>
-          <PoissonChart props={data} />
+        <Col className="gutter-row" span={12}>
+          <PoissonChart props={data} checkApproach={checkApproach} />
         </Col>
       </Row>
     </>

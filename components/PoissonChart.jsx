@@ -3,11 +3,13 @@ import { Card } from "antd";
 import ReactEcharts from "echarts-for-react";
 import { tablePoissonChart } from "../js/poisson";
 
-const PoissonChart = ({ props }) => {
+const PoissonChart = ({ props, checkApproach }) => {
   let arrayX = [];
   let arrayY = [];
+  let numberOne = checkApproach ? Number(props.numberX) : 0 ;
+  let numberTwo = checkApproach ? Number(props.numberX2) : Number(props.numberX) ;
 
-  for (let i = 0; i <= props.numberX; i++) {
+  for (let i = numberOne; i <= numberTwo; i++) {
     let valuesResult = tablePoissonChart(
       i,
       props.probability,
