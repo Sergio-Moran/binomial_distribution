@@ -105,7 +105,7 @@ const Poisson = () => {
                 </div>
                 <div hidden={!checkH}>
                   <label>
-                    T
+                    k
                     <Input
                       type="number"
                       id="tar"

@@ -161,6 +161,8 @@ const Cards = ({ result, flag, results, resultPoblation }) => {
         Uno menos la probabilidad es de{" "}
         <b>{Number(1 - result.probability).toFixed(4)}</b> ó del{" "}
         <b>{Number((1 - result.probability) * 100).toFixed(2)}%</b>
+        <br />
+        La desviación es de <b>{Number(result.deviation).toFixed(4)}</b>
       </Card>
     );
   } else if (flag == "8") {
@@ -173,6 +175,8 @@ const Cards = ({ result, flag, results, resultPoblation }) => {
         Uno menos la probabilidad es de{" "}
         <b>{Number(1 - result.probability).toFixed(4)}</b> ó del{" "}
         <b>{Number((1 - result.probability) * 100).toFixed(2)}%</b>
+        <br />
+        La desviación es de <b>{Number(result.deviation).toFixed(4)}</b>
       </Card>
     );
   }

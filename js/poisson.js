@@ -49,7 +49,8 @@ const poisson = (
     } else if (checkApproach) {
       finalProbability = poissonBinomial(numberX, numberX2, internalHalf);
       const result = {
-        probability: finalProbability,
+        probability: finalProbability.probability,
+        deviation: finalProbability.deviation,
         flag: "7",
       };
       return result;
@@ -63,7 +64,8 @@ const poisson = (
         tar
       );
       const result = {
-        probability: finalProbability,
+        probability: finalProbability.probability,
+        deviation: finalProbability.deviation,
         flag: "8",
       };
       return result;
@@ -176,8 +178,16 @@ const calculateBias = (numberX, probability) => {
   return bias;
 };
 
+/**
+ *
+ * @param {Number} numberX
+ * @param {Number} numberX2
+ * @param {Number} half
+ * @returns
+ */
 const poissonBinomial = (numberX, numberX2, half) => {
   let probability = 0;
+  let deviation = 0;
   for (let i = numberX; i <= numberX2; i++) {
     let iFactorial = factorial(Number(i));
     probability += Number(
@@ -185,12 +195,28 @@ const poissonBinomial = (numberX, numberX2, half) => {
         Number(iFactorial * Math.pow(Number(euler), Number(half)))
     );
   }
-  return probability;
+  deviation = Math.sqrt(Number(half));
+  const response = {
+    probability: probability,
+    deviation: deviation,
+  };
+  return response;
 };
 
+/**
+ *
+ * @param {Number} poblation
+ * @param {Number} numberX
+ * @param {Number} probability
+ * @param {Number} sample
+ * @param {Number} half
+ * @param {Number} tar
+ * @returns
+ */
 const poissonHyper = (poblation, numberX, probability, sample, half, tar) => {
   let internalProbability = 0;
   let internalHalf = 0;
+  let deviation = 0;
 
   if (probability == 0 || probability == "") {
     internalProbability = Number(tar / poblation);
@@ -208,7 +234,13 @@ const poissonHyper = (poblation, numberX, probability, sample, half, tar) => {
     Math.pow(Number(internalHalf), Number(numberX)) /
       Number(iFactorial * Math.pow(Number(euler), Number(internalHalf)))
   );
-  return probability;
+
+  deviation = Math.sqrt(Number(internalHalf));
+  const response = {
+    probability: probability,
+    deviation: deviation,
+  };
+  return response;
 };
 
 /**
