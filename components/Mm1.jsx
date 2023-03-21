@@ -46,7 +46,7 @@ const Mm1 = () => {
       <Row gutter={[16, 24]}>
         <Col className="gutter-row" span={24}>
           <label>
-            Media de Servicio
+            Media de Llegada
             <Input
               type="number"
               id="halfService"
@@ -60,7 +60,7 @@ const Mm1 = () => {
       <Row gutter={[16, 24]}>
         <Col className="gutter-row" span={24}>
           <label>
-            Media de Llegada
+            Media de Servicio
             <Input
               type="number"
               id="averageArrival"
@@ -134,7 +134,7 @@ const Mm1 = () => {
             <Input
               type="number"
               id="poblation"
-              value={data.lq}
+              value={data.poblation}
               onChange={(e) => handlChange(e.target.id, e.target.value)}
             />
           </label>

@@ -179,6 +179,37 @@ const Cards = ({ result, flag, results, resultPoblation }) => {
         La desviación es de <b>{Number(result.deviation).toFixed(4)}</b>
       </Card>
     );
+  } else if (flag == "9") {
+    return (
+      <Card title="Resultado" bordered={false}>
+        Media de llegada:{" "}
+        <b>{Number(result.internalHalfService).toFixed(2)}</b>
+        <br />
+        Media de Servicio:{" "}
+        <b>{Number(result.internalAverageArrival).toFixed(2)}</b>
+        <br />
+        Tiempo medio que un cliente esta en el sistema (ws):{" "}
+        <b>{Number(result.internalWs).toFixed(2)}</b>
+        <br />
+        Tiempo medio de espera en la cola para un cliente (wq):{" "}
+        <b>{Number(result.internalWq).toFixed(2)}</b>
+        <br />
+        Número medio de clientes en el sistema (ls):{" "}
+        <b>{Number(result.internalLs).toFixed(2)}</b>
+        <br />
+        Número medio de clientes en la cola (lq):{" "}
+        <b>{Number(result.internalLq).toFixed(2)}</b>
+        <br />
+        Probabilidad de uso:{" "}
+        <b>{Number(result.internalProbability).toFixed(2)}</b>
+        <br />
+        Probabilidad de osio:{" "}
+        <b>{Number(result.internalProbabilityOsio).toFixed(2)}</b>
+        <br />
+        Probabilidad de encontrar a N personas:{" "}
+        <b>{Number(result.internalProbabilityN).toFixed(4)}</b>
+      </Card>
+    );
   }
 };
 
