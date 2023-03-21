@@ -2,6 +2,7 @@ import { Checkbox, Col, Input, Row } from "antd";
 import React, { useState } from "react";
 import styles from "../styles/Home.module.css";
 import Mm1Calculator from "./Mm1Calculator";
+import Mm1Chart from "./Mm1Chart";
 
 const style = {
   background: "#0092ff",
@@ -184,6 +185,11 @@ const Mm1 = () => {
             </Row>
           </Col>
         </div>
+        <Col className="gutter-row" span={12}>
+          <Mm1Chart
+            props={data}
+          />
+        </Col>
       </Row>
     </>
   );
