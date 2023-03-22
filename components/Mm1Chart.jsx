@@ -6,8 +6,9 @@ const Mm1Chart = ({ props }) => {
   let arrayX = [];
   let arrayY = [];
   let internalProbabilityN = 0;
+  let index = props.poblation == 0 ? 10 : props.poblation;
 
-  for (let i = 0; i <= 10; i++) {
+  for (let i = 0; i <= index; i++) {
     internalProbabilityN =
     Number(1 - Number(props.halfService / props.averageArrival)) *
     Number(
