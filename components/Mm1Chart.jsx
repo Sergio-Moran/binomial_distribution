@@ -8,14 +8,17 @@ const Mm1Chart = ({ props }) => {
   let internalProbabilityN = 0;
   let index = props.poblation == 0 ? 10 : props.poblation;
 
-  for (let i = 0; i <= index; i++) {
-    internalProbabilityN =
-    Number(1 - Number(props.halfService / props.averageArrival)) *
-    Number(
-      Math.pow(Number(props.halfService / props.averageArrival), Number(i))
-    );
-    arrayY.push(internalProbabilityN);
-    arrayX.push(i);
+  if (props.halfService > props.averageArrival) {
+  } else {
+    for (let i = 0; i <= index; i++) {
+      internalProbabilityN =
+        Number(1 - Number(props.halfService / props.averageArrival)) *
+        Number(
+          Math.pow(Number(props.halfService / props.averageArrival), Number(i))
+        );
+      arrayY.push(internalProbabilityN);
+      arrayX.push(i);
+    }
   }
 
   // Create the echarts instance
@@ -36,7 +39,7 @@ const Mm1Chart = ({ props }) => {
     ],
   };
   return (
-    <Card title={"Distribución por Poisson:"} bordered={false}>
+    <Card title={"Distribución MM1:"} bordered={false}>
       <ReactEcharts option={option} />
     </Card>
   );

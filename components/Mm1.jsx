@@ -131,7 +131,7 @@ const Mm1 = () => {
       <Row gutter={[16, 24]}>
         <Col className="gutter-row" span={24}>
           <label>
-            Poblacion
+            Probabilidad de N personas en cola
             <Input
               type="number"
               id="poblation"

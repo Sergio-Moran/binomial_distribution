@@ -30,6 +30,9 @@ const mm1 = (
   ) {
     return alert("Debe de ingresar datos");
   }
+  if (halfService > averageArrival) {
+    return alert("El sistema tiende a infinito");
+  }
 
   if (checkMin) {
     internalHalfService = Number(averageArrival / 60);
@@ -77,7 +80,7 @@ const mm1 = (
     internalLq: internalLq,
     internalProbability: internalProbability,
     internalProbabilityOsio: internalProbabilityOsio,
-    internalProbabilityN:internalProbabilityN,
+    internalProbabilityN: internalProbabilityN,
     flag: "9",
   };
   return result;
