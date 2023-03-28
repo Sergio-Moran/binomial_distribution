@@ -10,7 +10,8 @@ const style = {
 };
 
 const Mm1 = () => {
-  const [min, setMin] = useState(false);
+  const [min1, setMin1] = useState(false);
+  const [min2, setMin2] = useState(false);
   const [poblation, setPoblation] = useState(false);
   const [data, setData] = useState({
     halfService: 0,
@@ -20,11 +21,16 @@ const Mm1 = () => {
     ls: 0,
     lq: 0,
     poblation: 0,
+    time: 0,
   });
   let typePoblation = true;
 
-  const onMin = () => {
-    setMin(!min);
+  const onMin1 = () => {
+    setMin1(!min1);
+  };
+
+  const onMin2 = () => {
+    setMin2(!min2);
   };
 
   const onPoblation = () => {
@@ -47,7 +53,7 @@ const Mm1 = () => {
       <Row gutter={[16, 24]}>
         <Col className="gutter-row" span={24}>
           <label>
-            Media de Llegada
+            Media de Llegada <Checkbox onChange={onMin1}>Minutos</Checkbox>
             <Input
               type="number"
               id="halfService"
@@ -61,7 +67,7 @@ const Mm1 = () => {
       <Row gutter={[16, 24]}>
         <Col className="gutter-row" span={24}>
           <label>
-            Media de Servicio
+            Media de Servicio <Checkbox onChange={onMin2}>Minutos</Checkbox>
             <Input
               type="number"
               id="averageArrival"
@@ -142,6 +148,20 @@ const Mm1 = () => {
         </Col>
       </Row>
       <br />
+      <Row gutter={[16, 24]}>
+        <Col className="gutter-row" span={24}>
+          <label>
+            Tiempo
+            <Input
+              type="number"
+              id="time"
+              value={data.time}
+              onChange={(e) => handlChange(e.target.id, e.target.value)}
+            />
+          </label>
+        </Col>
+      </Row>
+      <br />
     </>
   );
 
@@ -169,26 +189,24 @@ const Mm1 = () => {
       <Row gutter={[16, 24]}>
         <div className={styles.container}>
           <Col className="gutter-row" span="all">
-            <Checkbox onChange={onMin}>Minutos</Checkbox>
             <Checkbox onChange={onPoblation}>Poblacion 0</Checkbox>
             {typePoblation ? normal : poblation0}
-            <Row gutter={[16, 24]}>
-              <Col className="gutter-row" span={24}>
-                <label>
-                  <Mm1Calculator
-                    props={data}
-                    checkMin={min}
-                    checkPoblation={poblation}
-                  />
-                </label>
-              </Col>
-            </Row>
           </Col>
         </div>
         <Col className="gutter-row" span={12}>
-          <Mm1Chart
-            props={data}
-          />
+          <Mm1Chart props={data} />
+        </Col>
+      </Row>
+      <Row gutter={[16, 24]}>
+        <Col className="gutter-row" span={24}>
+          <label>
+            <Mm1Calculator
+              props={data}
+              checkMin1={min1}
+              checkMin2={min2}
+              checkPoblation={poblation}
+            />
+          </label>
         </Col>
       </Row>
     </>

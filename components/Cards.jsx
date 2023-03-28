@@ -208,6 +208,13 @@ const Cards = ({ result, flag, results, resultPoblation }) => {
         <br />
         Probabilidad de encontrar a N personas:{" "}
         <b>{Number(result.internalProbabilityN).toFixed(4)}</b>
+        <br />
+        Probabilidad de esperar x cantidad de tiempo en cola:{" "}
+        <b>{Number(result.internalProbabilityWait).toFixed(4)}</b>
+        <br />
+        Probabilidad de esperar x cantidad de tiempo en el sistema:{" "}
+        <b>{Number(result.internalProbabilityWaitSystem).toFixed(4)}</b>
+        <br />
       </Card>
     );
   }
