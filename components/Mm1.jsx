@@ -12,6 +12,7 @@ const style = {
 const Mm1 = () => {
   const [min1, setMin1] = useState(false);
   const [min2, setMin2] = useState(false);
+  const [tMin, setTMin] = useState(false);
   const [poblation, setPoblation] = useState(false);
   const [data, setData] = useState({
     halfService: 0,
@@ -31,6 +32,10 @@ const Mm1 = () => {
 
   const onMin2 = () => {
     setMin2(!min2);
+  };
+
+  const onTMin = () => {
+    setTMin(!tMin);
   };
 
   const onPoblation = () => {
@@ -151,7 +156,7 @@ const Mm1 = () => {
       <Row gutter={[16, 24]}>
         <Col className="gutter-row" span={24}>
           <label>
-            Tiempo
+            Tiempo <Checkbox onChange={onTMin}>Minutos</Checkbox>
             <Input
               type="number"
               id="time"
@@ -194,7 +199,7 @@ const Mm1 = () => {
           </Col>
         </div>
         <Col className="gutter-row" span={12}>
-          <Mm1Chart props={data} />
+          <Mm1Chart props={data} checkMin1={min1} checkMin2={min2} />
         </Col>
       </Row>
       <Row gutter={[16, 24]}>
@@ -204,6 +209,7 @@ const Mm1 = () => {
               props={data}
               checkMin1={min1}
               checkMin2={min2}
+              checkTMin={tMin}
               checkPoblation={poblation}
             />
           </label>

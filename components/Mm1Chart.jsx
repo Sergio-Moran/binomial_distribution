@@ -2,13 +2,27 @@ import React from "react";
 import { Card } from "antd";
 import ReactEcharts from "echarts-for-react";
 
-const Mm1Chart = ({ props }) => {
+const Mm1Chart = ({ props, checkMin1, checkMin2 }) => {
   let arrayX = [];
   let arrayY = [];
   let internalProbabilityN = 0;
+  let internalHalfService = 0;
+  let internalAverageArrival = 0;
   let index = props.poblation == 0 ? 10 : props.poblation;
 
-  if (props.halfService > props.averageArrival) {
+  if (checkMin1) {
+    internalHalfService = Number(props.halfService / 60);
+  } else {
+    internalHalfService = Number(props.halfService);
+  }
+
+  if (checkMin2) {
+    internalAverageArrival = Number(props.averageArrival / 60);
+  } else {
+    internalAverageArrival = Number(props.averageArrival);
+  }
+
+  if (internalHalfService > internalAverageArrival) {
   } else {
     for (let i = 0; i <= index; i++) {
       internalProbabilityN =

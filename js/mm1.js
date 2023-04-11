@@ -12,6 +12,7 @@ const mm1 = (
   time,
   checkMin1,
   checkMin2,
+  checkTMin,
   checkPoblation
 ) => {
   let internalHalfService = 0;
@@ -54,6 +55,12 @@ const mm1 = (
     internalHalfService = Number(averageArrival);
   }
 
+  if (checkTMin) {
+    internalTime = Number(time / 60);
+  } else {
+    internalTime = Number(time);
+  }
+
   internalWs = Number(ws);
   internalWq = Number(wq);
 
@@ -70,8 +77,6 @@ const mm1 = (
   if (ls == "" || ls == 0) {
     internalLs = Number(internalAverageArrival * internalWs);
   }
-
-  internalTime = Number(time);
 
   internalProbability = Number(halfService / averageArrival).toFixed(2);
   internalProbabilityOsio = Number(1 - internalProbability).toFixed(2);
@@ -104,8 +109,8 @@ const mm1 = (
     internalProbability: internalProbability,
     internalProbabilityOsio: internalProbabilityOsio,
     internalProbabilityN: internalProbabilityN,
-    internalProbabilityWait:internalProbabilityWait,
-    internalProbabilityWaitSystem:internalProbabilityWaitSystem,
+    internalProbabilityWait: internalProbabilityWait,
+    internalProbabilityWaitSystem: internalProbabilityWaitSystem,
     flag: "9",
   };
 
