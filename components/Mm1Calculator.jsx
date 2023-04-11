@@ -3,7 +3,7 @@ import { Button, Col, Row } from "antd";
 import Cards from "./Cards";
 import { mm1 } from "../js/mm1";
 
-const Mm1Calculator = ({ props, checkMin1, checkMin2, checkPoblation }) => {
+const Mm1Calculator = ({ props, checkMin1, checkMin2, checkTMin, checkPoblation }) => {
   const [size, setSize] = useState("large");
   const [result, setResult] = useState();
   const [flag, setFlag] = useState();
@@ -21,6 +21,7 @@ const Mm1Calculator = ({ props, checkMin1, checkMin2, checkPoblation }) => {
         Number(props.time),
         checkMin1,
         checkMin2,
+        checkTMin,
         checkPoblation
       );
       setResult(results);
