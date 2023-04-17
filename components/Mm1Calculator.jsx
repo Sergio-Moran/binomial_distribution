@@ -27,7 +27,7 @@ const Mm1Calculator = ({ props, checkMin1, checkMin2, checkTMin, checkPoblation 
       setResult(results);
       setFlag(results.flag);
     } catch (error) {
-      console.log(error);
+      /* console.log(error); */
     }
   };
 
