@@ -1,6 +1,22 @@
 /* Overall variable */
 const euler = 2.71828;
 
+/**
+ *
+ * @param {Number} halfService
+ * @param {Number} averageArrival
+ * @param {Number} ws
+ * @param {Number} wq
+ * @param {Number} ls
+ * @param {Number} lq
+ * @param {Number} poblation
+ * @param {Number} time
+ * @param {Number} checkMin1
+ * @param {Number} checkMin2
+ * @param {Number} checkTMin
+ * @param {Number} checkPoblation
+ * @returns
+ */
 const mm1 = (
   halfService,
   averageArrival,
@@ -178,6 +194,15 @@ const mm1 = (
   return result;
 };
 
+/**
+ *
+ * @param {Number} ws
+ * @param {Number} wq
+ * @param {Number} ls
+ * @param {Number} lq
+ * @param {Number} halfService
+ * @returns
+ */
 const mirrorAverageArrival = (ws, wq, ls, lq, halfService) => {
   let internalAverageArrival = 0;
   ws = Number(ws);
@@ -187,17 +212,29 @@ const mirrorAverageArrival = (ws, wq, ls, lq, halfService) => {
   halfService = Number(halfService);
 
   if (ws != "" || ws != 0) {
+    ws = Number(ws / 60);
     internalAverageArrival = Number(halfService - 1 / ws).toFixed(4);
   } else if (wq != "" || wq != 0) {
+    wq = Number(wq / 60);
     internalAverageArrival = Number(
       (wq * Math.pow(halfService, 2)) / (1 + wq * halfService)
     ).toFixed(4);
   } else if (ls != "" || ls != 0) {
+    ls = Number(ls);
     internalAverageArrival = Number((ls * halfService) / (1 + ls)).toFixed(4);
   }
   return internalAverageArrival;
 };
 
+/**
+ *
+ * @param {Number} ws
+ * @param {Number} wq
+ * @param {Number} ls
+ * @param {Number} lq
+ * @param {Number} averageArrival
+ * @returns
+ */
 const mirrorHalfService = (ws, wq, ls, lq, averageArrival) => {
   let internalHalfService = 0;
   ws = Number(ws);
