@@ -189,22 +189,22 @@ const Cards = ({ result, flag, results, resultPoblation }) => {
         <b>{Number(result.internalAverageArrival).toFixed(2)}</b>
         <br />
         Tiempo medio que un cliente esta en el sistema (ws):{" "}
-        <b>{Number(result.internalWs).toFixed(2)}</b>
+        <b>{Number(result.internalWs).toFixed(4)}</b>
         <br />
         Tiempo medio de espera en la cola para un cliente (wq):{" "}
-        <b>{Number(result.internalWq).toFixed(2)}</b>
+        <b>{Number(result.internalWq).toFixed(4)}</b>
         <br />
         Número medio de clientes en el sistema (ls):{" "}
         <b>{Number(result.internalLs).toFixed(2)}</b>
         <br />
         Número medio de clientes en la cola (lq):{" "}
-        <b>{Number(result.internalLq).toFixed(2)}</b>
+        <b>{Number(result.internalLq).toFixed(4)}</b>
         <br />
         Probabilidad de uso:{" "}
-        <b>{Number(result.internalProbability).toFixed(2)}</b>
+        <b>{Number(result.internalProbability).toFixed(4)}</b>
         <br />
         Probabilidad de osio:{" "}
-        <b>{Number(result.internalProbabilityOsio).toFixed(2)}</b>
+        <b>{Number(result.internalProbabilityOsio).toFixed(4)}</b>
         <br />
         Probabilidad de encontrar a N personas:{" "}
         <b>{Number(result.internalProbabilityN).toFixed(4)}</b>
