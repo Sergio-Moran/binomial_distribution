@@ -60,7 +60,6 @@ const mm1 = (
 
   if (averageArrival == "" || averageArrival == 0) {
     results = mirrorHalfService(ws, wq, ls, lq, halfService);
-    console.log("dentro");
   }
 
   if (checkMin1) {
@@ -115,19 +114,21 @@ const mm1 = (
     ).toFixed(4);
   }
 
-  /*   if (ws == "" || ws == 0) {
+  if (ws != "" || ws != 0) {
     internalWs = Number(internalWq + 1 / internalHalfService);
-  } else if (wq == "" || wq == 0) {
+  }
+
+  if (wq != "" || wq != 0) {
     internalWq = Number(internalWs - 1 / internalHalfService);
   }
 
-  if (lq == "" || lq == 0) {
+  if (lq != "" || lq != 0) {
     internalLq = Number(internalAverageArrival * internalWq);
   }
 
-  if (ls == "" || ls == 0) {
+  if (ls != "" || ls != 0) {
     internalLs = Number(internalAverageArrival * internalWs);
-  } */
+  }
 
   internalProbability = Number(halfService / averageArrival).toFixed(2);
   internalProbabilityOsio = Number(1 - internalProbability).toFixed(2);
