@@ -12,6 +12,7 @@ const Calculator = ({ props, check, checkPoblation, checkK, approach, lots }) =>
 
   const onMath = () => {
     try {
+      
       let statisticalData = maths(
         props.N,
         props.n,
